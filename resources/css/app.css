@@ -1,0 +1,172 @@
+p{ margin-bottom: 20px; }
+a{
+    color: #0041ed;
+    text-decoration: none;
+}
+
+.text-white a
+{
+    color: white !important;
+}
+
+.bg-pokedex
+{
+    background-color: #300074 !important;
+    background-image: url(/img/bg-header.jpg) !important;
+    background-size: cover !important;
+    background-position: bottom center !important;
+    background-repeat: no-repeat;
+    color: white !important;
+    font-weight: bold;
+    text-shadow: 0px 2px 0px black;
+}
+
+.bg-pokedex .app-logo
+{
+    height: 20px;
+}
+
+.v-toolbar-title__placeholder
+{
+    display: flex;
+    align-items: center;
+}
+
+.v-toolbar-title__placeholder img{ margin-right: 12px; }
+
+.v-list-item__prepend > .v-icon 
+{
+    margin-inline-end: 12px !important;
+}
+
+.typewriter
+{
+    background-image: url(/img/bg-white.jpg);
+    background-size: cover;
+    font-size: 1.6em;
+    padding: 24px;
+    position: relative;
+}
+
+.typewriter #typewriter
+{
+    display: block;
+    width: 90%;
+    min-height: 6.0em;
+}
+
+.typewriter #hero-logo
+{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9000;
+}
+
+@media( max-width: 960px )
+{
+    .vueperslides__bullets{ display: none !important; }
+}
+
+@media (min-width: 960px)
+{
+    .v-container {
+        padding: 64px !important;
+    }
+
+    .typewriter
+    {
+        font-size: 2.5em;
+        padding: 64px;
+    }
+
+    .typewriter #typewriter
+    {
+        width: 60%;
+        min-height: 4.5em;
+    }
+
+    .typewriter #hero-logo
+    {
+        position: absolute;
+        bottom: 110px;
+        right: 75px;
+        width: 300px;
+    }
+
+}
+
+#young-me
+{
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 24px;
+}
+
+@media (min-width: 960px)
+{
+    #young-me
+    {
+        width: 40%;
+        float: left;
+        margin-right: 32px;
+    }
+}
+
+.vueperslides
+{
+    border-radius: 5px;
+}
+.vueperslide
+{
+    border-radius: 5px;
+    background-color: black;
+}
+
+.vueperslide__content-wrapper
+{
+    justify-content: flex-end !important;
+    padding-bottom: 16px;
+    color: white;
+}
+
+.vueperslide__title
+{
+    font-weight: 900;
+}
+
+#cta
+{
+    border-radius: 5px;
+    background-color: #6200ee;
+    color: white;
+    padding: 32px;
+    margin-bottom: 32px;
+}
+
+#contato .v-btn,
+#cta .v-btn
+{
+    font-weight: bold;
+}
+
+#blog img
+{
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+
+#post img#hero
+{
+    width: 100%;
+    aspect-ratio: 10 / 4;
+    object-fit: cover;
+}
+
+@media ( min-width: 600px )
+{
+    #post img#hero
+    {
+        aspect-ratio: 10/2;
+    }
+}
