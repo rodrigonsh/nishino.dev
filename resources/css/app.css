@@ -60,7 +60,7 @@ a{
     position: absolute;
     bottom: 20px;
     right: 20px;
-    z-index: 9000;
+    z-index: 2;
 }
 
 @media( max-width: 960px )
@@ -141,7 +141,13 @@ a{
     background-color: #6200ee;
     color: white;
     padding: 32px;
-    margin-bottom: 32px;
+    margin-bottom: 42px;
+}
+
+#cta h1
+{
+    line-height: 1em;
+    margin-bottom: 12px;
 }
 
 #contato .v-btn,
