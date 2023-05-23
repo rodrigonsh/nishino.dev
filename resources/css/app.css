@@ -4,6 +4,14 @@ a{
     text-decoration: none;
 }
 
+.icon
+{
+    width: 18px;
+    vertical-align: bottom;
+    color: white;
+    margin-right: 2px;
+}
+
 .text-white a
 {
     color: white !important;

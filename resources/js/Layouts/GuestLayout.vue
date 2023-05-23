@@ -80,21 +80,30 @@ export default {
             <v-divider class="mb-5"></v-divider>
 
             <p class="w-100 mb-2">
+                <a href="https://api.whatsapp.com/send?phone=5567998711219" target="_blank">
                 <v-btn variant="outlined" class="d-block w-100 bg-primary text-white">
-                    <a href="https://api.whatsapp.com/send?phone=5567998711219" target="_blank">
                         <v-icon icon="mdi-whatsapp"></v-icon>
                         Whatsapp
-                    </a>
-                </v-btn>
+                    </v-btn>
+                </a>
+            </p>
+
+            <p class="w-100 mb-2">
+                <a href="https://discord.gg/TadZ4GvKay" target="_blank">
+                <v-btn variant="outlined" class="d-block w-100 bg-primary text-white">
+                        <img src="/img/logo-discord.svg" class="icon" />
+                        Discord
+                    </v-btn>
+                </a>
             </p>
             
             <p class="w-100">
+                <a href="mailto:rodrigo.nsh@gmail.com" target="_blank">
                 <v-btn variant="tonal" class="d-block w-100">
-                    <a href="mailto:rodrigo.nsh@gmail.com" target="_blank">
                         <v-icon icon="mdi-email-outline"></v-icon>
                         Email
-                    </a>
-                </v-btn>
+                    </v-btn>
+                </a>
             </p>
             
             <small>
