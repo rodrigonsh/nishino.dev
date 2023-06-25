@@ -22,7 +22,7 @@ export default {
 
     function fabClicked()
     {
-        window.location = "https://api.whatsapp.com/send?phone=5567998711219"
+        window.location = "https://api.whatsapp.com/send?phone=5567981849417"
     }
 
 </script>
@@ -80,10 +80,19 @@ export default {
             <v-divider class="mb-5"></v-divider>
 
             <p class="w-100 mb-2">
-                <a href="https://api.whatsapp.com/send?phone=5567998711219" target="_blank">
+                <a href="https://api.whatsapp.com/send?phone=5567981849417" target="_blank">
                 <v-btn variant="outlined" class="d-block w-100 bg-primary text-white">
                         <v-icon icon="mdi-whatsapp"></v-icon>
                         Whatsapp
+                    </v-btn>
+                </a>
+            </p>
+            
+            <p class="w-100 mb-2">
+                <a href="https://github.com/rodrigonsh" target="_blank">
+                <v-btn variant="outlined" class="d-block w-100 bg-primary text-white">
+                        <v-icon icon="mdi-github"></v-icon>
+                        GitHUB
                     </v-btn>
                 </a>
             </p>
