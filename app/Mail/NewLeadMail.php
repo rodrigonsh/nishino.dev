@@ -22,7 +22,7 @@ class NewLeadMail extends Mailable
      */
     public function __construct( Lead $lead )
     {
-        $this->lead = $lead
+        $this->lead = $lead;
     }
 
     /**
