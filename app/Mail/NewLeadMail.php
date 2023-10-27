@@ -14,6 +14,9 @@ Use App\Models\Lead;
 class NewLeadMail extends Mailable
 {
     use Queueable, SerializesModels;
+    
+    public $lead;
+
 
     /**
      * Create a new message instance.
