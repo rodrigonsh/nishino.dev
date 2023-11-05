@@ -14,6 +14,22 @@ export default {
 
     import { Link } from '@inertiajs/vue3';
 
+    import { useAppStore } from './../store.js'
+
+    import { computed } from 'vue'
+
+    const store = useAppStore()
+
+    const getLang = computed( function()
+    {
+        return store.lang
+    })
+
+    const changeLang = function()
+    {
+        store.toggleLang()
+    }
+
     defineProps({
         canLogin: Boolean,
         canRegister: Boolean,
@@ -25,19 +41,47 @@ export default {
         window.location = "https://api.whatsapp.com/send?phone=5567981849417"
     }
 
+    const getAboutTrans = computed(function()
+    {
+        let trans = {
+            'pt': "Saiba Mais",
+            'en': "About me",
+            'es': "Acerca",
+        }
+
+        return trans[store.lang]
+    })
+
+    const getContactTrans = computed(function()
+    {
+        let trans = {
+            'pt': "Contato",
+            'en': "Call me",
+            'es': "Cuenta conmigo",
+        }
+
+        return trans[store.lang]
+    })
+
+    
+
 </script>
 
 
 <template>
 
-    <v-app>
+    <v-app :lang="store.lang">
 
     <v-navigation-drawer color="surf" v-model="drawer">
         <v-container class="pa-5 d-flex flex-column ">
 
-            <Link href="/" class="d-block w-75 my-6 mx-auto">
+            <Link id="menuLogo" href="/" class="d-block w-75 my-6 mx-auto">
                 <img src="/img/logo-nsh.svg" class="app-logo d-block w-100 mb-3" />
-                <span class="d-block text-center">Desenvolvimento e Consultoria</span>
+
+                <span lang="pt" class="text-center">Desenvolvimento e Consultoria</span>
+                <span lang="en" class="text-center">Coding and Consulting</span>
+                <span lang="es" class="text-center">Desarrollo y consultoría</span>
+
             </Link>
 
             <v-card class="w-100 mb-6">
@@ -45,12 +89,14 @@ export default {
                 <v-list lines="one">
                     
                     <Link href="/about">
-                    <v-list-item 
-                        prepend-icon="mdi-information"
-                        title="Saiba Mais"
-                        :ripple="true"
-                        link
-                    ></v-list-item>
+
+                        <v-list-item 
+                            prepend-icon="mdi-information"
+                            :title="getAboutTrans"
+                            :ripple="true"
+                            link
+                        ></v-list-item>
+
                     </Link>
 
                     <v-divider />
@@ -68,7 +114,7 @@ export default {
                     <Link href="/contato">
                     <v-list-item 
                         prepend-icon="mdi-message"
-                        title="Contato"
+                        :title="getContactTrans"
                         :ripple="true"
                     ></v-list-item>
                     </Link>
@@ -96,16 +142,7 @@ export default {
                     </v-btn>
                 </a>
             </p>
-
-            <p class="w-100 mb-2">
-                <a href="https://discord.gg/TadZ4GvKay" target="_blank">
-                <v-btn variant="outlined" class="d-block w-100 bg-primary text-white">
-                        <img src="/img/logo-discord.svg" class="icon" />
-                        Discord
-                    </v-btn>
-                </a>
-            </p>
-            
+        
             <p class="w-100">
                 <a href="mailto:rodrigo.nsh@gmail.com" target="_blank">
                 <v-btn variant="tonal" class="d-block w-100">
@@ -117,9 +154,10 @@ export default {
             
             <small>
 
-                <p><strong>RODRIGO CALANCA NISHINO LTDA</strong></p>
-
-                <p>48.129.023/0001-27</p>
+                <p>
+                    <strong>NISHINO LTDA</strong><br />
+                    48.129.023/0001-27
+                </p>
                 
                 <p>
                     Avenida Afluente, 1070<br/> 
@@ -142,6 +180,12 @@ export default {
         <v-app-bar-title>
             {{ title }}
         </v-app-bar-title>
+
+        <v-spacer></v-spacer>
+
+        <v-btn @click="changeLang">
+          {{ getLang }}
+        </v-btn>
                                   
 
     </v-app-bar>

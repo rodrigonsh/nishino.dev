@@ -11,14 +11,18 @@
     import { VueperSlides, VueperSlide } from 'vueperslides'
     import 'vueperslides/dist/vueperslides.css'
 
+    import { computed, ref } from 'vue'
 
+    import { useAppStore } from './../store.js'
+    const store = useAppStore()
 
-    defineProps({
+    const props = defineProps({
         canLogin: Boolean,
         canRegister: Boolean,
         laravelVersion: String,
         phpVersion: String,
-        status: String
+        status: String,
+        projetos: Array
     });
 
     const rules = InputRules
@@ -27,14 +31,50 @@
         search: ''
     });
 
+    var currentLangIndex = 0
+
+    const langs = ['pt', 'en', 'es']
+
+    var lang = ref(store.lang)
+
+    const twRef = ref();
+
     const arquivoFrases = [
-        "Crie um site profissional e de alta qualidade.",
-        "Transforme sua presença online com nosso design personalizado.",
-        "Desenvolvimento de sites eficientes e acessíveis.",
-        "Websites personalizados para o seu negócio.",
-        "Criamos sites exclusivos para alcançar seus objetivos.",
-        "Desenvolvimento web com resultados surpreendentes.",
-        "Combinando experiência com AI pelos melhores resultados."
+        {
+            'pt': "Crie um site profissional e de alta qualidade.",
+            'en': "Create a professional and high-quality website.",
+            "es": "Crea un sitio web profesional y de alta calidad."
+        },
+        {
+            'pt': "Transforme sua presença online com nosso design personalizado.",
+            'en': "Transform your online presence with our custom design.",
+            "es": "Transforma tu presencia en línea con nuestro diseño personalizado."
+        },
+        {
+            'pt': "Desenvolvimento de sites eficientes e acessíveis.",
+            'en': "Development of efficient and accessible websites.",
+            "es": "Desarrollo de sitios web eficientes y accesibles."
+        },
+        {
+            'pt': "Websites personalizados para o seu negócio.",
+            'en': "Custom websites for your business.",
+            "es": "Sitios web personalizados para tu negocio."
+        },
+        {
+            'pt': "Criamos sites exclusivos para alcançar seus objetivos.",
+            'en': "We create unique websites to achieve your goals.",
+            "es": "Creamos sitios web exclusivos para alcanzar tus objetivos."
+        },
+        {
+            'pt': "Desenvolvimento web com resultados surpreendentes.",
+            'en': "Web development with amazing results.",
+            "es": "Desarrollo web con resultados sorprendentes."
+        },
+        {
+            'pt': "Combinando experiência com AI pelos melhores resultados.",
+            'en': "Combining AI expertise for the best results.",
+            "es": "Combinando experiencia en IA para obtener los mejores resultados"
+        },
     ]
 
     const myWords = [
@@ -81,7 +121,19 @@
 
 
 
-    const shuffledFrases = arquivoFrases.sort(()=>Math.random() - 0.5)
+    const translatedPhrases = computed( function() {
+
+        console.log('ue, translatedPhrases', store.lang)
+
+        let res = []
+
+        arquivoFrases.forEach( function(item)
+        {
+            res.push( item[store.lang] )
+        })
+
+        return res
+    })
 
     const buscar = () => {
         form.get(route('search', [form.search]));
@@ -93,7 +145,7 @@
         600: { visibleSlides: 1, slideRatio: 1 } // From width = 600px to width = 0.
     }
 
-    const slides = [
+    const oldSlides = [
     {
         title: 'Diário Corumbaense',
         content: 'Portal Jornalístico.',
@@ -126,23 +178,42 @@
     }
     ]
 
+    var slides = []
+
+    for( projeto in props.projetos )
+    {
+        let slide = 
+        {
+            title: projeto.nome,
+            content: projeto.descricao,
+            poster: projeto.poster,
+            id: projeto.id,
+        }
+        slides.push( slide ) 
+    }
+
+    function teste(hum)
+    {
+        console.log('teste')
+    }
+
+
 </script>
 
 
 <template>
     
-    <GuestLayout :canLogin="canRegister" c:anRegister="canRegister" title="NISHINO">
+    <GuestLayout :canLogin="canRegister" :canRegister="canRegister" title="NISHINO">
     
-        <Head title="Home" />
-
-        <div class="typewriter">
+        <div v-if="store.prevLang == store.lang" class="typewriter">
             <vue-typewriter-effect
+                ref="twRef"
                 deleteSpeed="0"
                 delay="50"
-                :strings="shuffledFrases" 
+                :strings="translatedPhrases" 
             />   
 
-            <img src="/img/logo-nsh.svg" id="hero-logo" />
+            <img src="/img/logo-nsh-white.svg" id="hero-logo" />
 
         </div>
 
@@ -164,6 +235,7 @@
                     :title="slide.title"
                     :content="slide.content"
                     :image="slide.image"
+                    @click="teste"
                 >
                 </vueper-slide>
                 

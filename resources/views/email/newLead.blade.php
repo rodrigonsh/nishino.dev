@@ -1,9 +1,7 @@
 <h1>Novo LEAD pelo site!</h1>
 
-<p>name: <strong>{{ $lead->name }}</strong></p>
-<p>whatsapp: <strong>{{ $lead->whatsapp }}</strong></p>
-<p>origin: <strong>{{ $lead->origin }}</strong></p>
+<p>Nome: <strong>{{ $lead->name }}</strong></p>
+<p>Whatsapp: <strong>{{ $lead->whatsapp }}</strong></p>
 <p>email: <strong>{{ $lead->email }}</strong></p>
-<p>orcamento: <strong>{{ $lead->orcamento }}</strong></p>
-<p>state: <strong>{{ $lead->state }}</strong></p>
-<p>city: <strong>{{ $lead->city }}</strong></p>
+<p>Orcamento: <strong>{{ $lead->orcamento }}</strong></p>
+<p>Endereço: <strong>{{ $lead->address }}</strong></p>

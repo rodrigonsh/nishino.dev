@@ -49,11 +49,12 @@ a{
 
 .typewriter
 {
-    background-image: url(/img/bg-white.jpg);
+    background-image: url(/img/bg-primary.jpg);
     background-size: cover;
     font-size: 1.6em;
     padding: 24px;
     position: relative;
+    color: white;
 }
 
 .typewriter #typewriter
@@ -74,10 +75,13 @@ a{
 @media( max-width: 960px )
 {
     .vueperslides__bullets{ display: none !important; }
+
+    
 }
 
 @media (min-width: 960px)
 {
+    
     .v-container {
         padding: 64px !important;
     }
@@ -184,3 +188,8 @@ a{
         aspect-ratio: 10/2;
     }
 }
+
+.v-application [lang]{ display: none; }
+.v-application[lang="pt"] [lang~="pt"]{ display: block; }
+.v-application[lang="en"] [lang~="en"]{ display: block; }
+.v-application[lang="es"] [lang~="es"]{ display: block; }

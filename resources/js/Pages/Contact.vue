@@ -20,8 +20,7 @@ var form = useForm({
     email: null,
     whatsapp: null,
     name: null,
-    state: null,
-    city: null,
+    address: null,
     orcamento: null
 });
 
@@ -53,6 +52,14 @@ const enviar = () => {
             <h2 class="mb-4">Vamos realizar seu sonho!</h2>
 
             <v-text-field 
+                prepend-inner-icon="mdi-account" 
+                v-model="form.name" 
+                label="Nome" 
+                :rules="[InputRules.required]"
+                required 
+            />
+            
+            <v-text-field 
                 prepend-inner-icon="mdi-at" 
                 v-model="form.email" 
                 label="Email" 
@@ -68,30 +75,18 @@ const enviar = () => {
                 required 
             />
 
-            <v-text-field 
-                prepend-inner-icon="mdi-account" 
-                v-model="form.name" 
-                label="Nome" 
-                :rules="[InputRules.required]"
-                required 
-            />
 
-            <v-text-field 
+            <v-textarea 
                 prepend-inner-icon="mdi-map" 
-                v-model="form.state" 
-                label="Estado" 
+                v-model="form.address" 
+                label="Endereço" 
             />
 
-            <v-text-field 
-                prepend-inner-icon="mdi-map-marker" 
-                v-model="form.city" 
-                label="Cidade" 
-            />
-
-            <v-text-field 
+            <v-select 
                 prepend-inner-icon="mdi-currency-usd" 
-                v-model="form.budget" 
+                v-model="form.orcamento" 
                 label="Orçamento" 
+                :items="['Até 10.000', 'Até 50.000', 'Acima de 50.000']"
             />
 
             <div class="d-flex justify-end">

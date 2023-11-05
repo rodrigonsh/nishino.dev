@@ -36,7 +36,7 @@ class NewLeadMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'New Lead Mail',
+            subject: 'Opa! Tem mensagem nova!',
         );
     }
 

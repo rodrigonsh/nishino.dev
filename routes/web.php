@@ -8,6 +8,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use TCG\Voyager\Models\Post;
+use App\Models\Project;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::get('/', function () {
         'canRegister' => false,
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        'projetos' => Project::all()
     ]);
 });
 
