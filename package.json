@@ -27,7 +27,6 @@
         "vue-typewriter-effect": "^1.0.1",
         "vue-wordcloud": "^1.1.1",
         "vueperslides": "^3.5.1",
-        "vuetify": "^3.1.12",
-        "vuewordcloud": "^19.0.0"
+        "vuetify": "^3.1.12"
     }
 }

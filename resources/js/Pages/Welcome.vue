@@ -6,10 +6,6 @@
     import GuestLayout from '@/Layouts/GuestLayout.vue';
 
     import VueTypewriterEffect from "vue-typewriter-effect";
-    import VueWordCloud from 'vuewordcloud';
-
-    import { VueperSlides, VueperSlide } from 'vueperslides'
-    import 'vueperslides/dist/vueperslides.css'
 
     import { computed, ref } from 'vue'
 
@@ -31,13 +27,7 @@
         search: ''
     });
 
-    var currentLangIndex = 0
-
-    const langs = ['pt', 'en', 'es']
-
     var lang = ref(store.lang)
-
-    const twRef = ref();
 
     const arquivoFrases = [
         {
@@ -77,50 +67,6 @@
         },
     ]
 
-    const myWords = [
-        ['Fullstack', 19], 
-
-        ['Laravel', 16],
-        ['PHP', 14],
-        ['Javascript', 14],
-        ['Code Igniter', 10],
-        
-        ['App Development', 8],
-        ['flutter', 7],
-        ['APIs', 8],
-        ['Docker', 8],
-        ['Cloud Services', 6],
-        
-        ['SSH', 5],
-        ['Cordova', 5],
-        ['Onsen.io', 5],
-        ['Ionic', 5],
-        ['PagSeguro', 4],
-        ['cPanel', 4],
-        ['Databases', 3],
-        ['Apache', 3],
-        ['image processing', 2],
-        ['Mobile-First Design', 2],
-        ['Geoprocessing', 2],
-        ]
-
-    const myColors = function([name, weight])
-    {
-        if (weight > 16) return 'DeepPink';
-        if (weight > 10) return '#6200ee';
-        if (weight > 6) return '#ab92ce';
-        if (weight < 6) return 'LightGray';
-        else return 'Indigo';
-    }
-
-    const myWeights = function([name, weight])
-    {
-        if (weight > 10) return 900;
-        else return 100;   
-    }
-
-
-
     const translatedPhrases = computed( function() {
 
         console.log('ue, translatedPhrases', store.lang)
@@ -135,67 +81,6 @@
         return res
     })
 
-    const buscar = () => {
-        form.get(route('search', [form.search]));
-    }
-
-    const slidesBP = 
-    {
-        900: {visibleSlides: 2, slideRatio: 1/2 }, // From width = 900px to width = 601.
-        600: { visibleSlides: 1, slideRatio: 1 } // From width = 600px to width = 0.
-    }
-
-    const oldSlides = [
-    {
-        title: 'Diário Corumbaense',
-        content: 'Portal Jornalístico.',
-        image: '/img/slide-diario.jpg'
-    },
-    {
-        title: 'VitrineVirtual',
-        content: 'Cobertura fotográfica.',
-        image: '/img/slide-vitrine.jpg'
-    },
-    {
-        title: 'Opa21',
-        content: 'App para Delivery.',
-        image: '/img/slide-opa.jpg'
-    },
-    {
-        title: 'Show de Prêmios',
-        content: 'App de Logística',
-        image: '/img/slide-sdp.jpg'
-    },
-    {
-        title: 'CaimaSUL',
-        content: 'Biometria e Coleta',
-        image: '/img/slide-caimasul.jpg'
-    },
-    {
-        title: 'Domicílio Digital',
-        content: 'Em Parceria com MultiSIG',
-        image: '/img/slide-multisig.jpg'
-    }
-    ]
-
-    var slides = []
-
-    for( projeto in props.projetos )
-    {
-        let slide = 
-        {
-            title: projeto.nome,
-            content: projeto.descricao,
-            poster: projeto.poster,
-            id: projeto.id,
-        }
-        slides.push( slide ) 
-    }
-
-    function teste(hum)
-    {
-        console.log('teste')
-    }
 
 
 </script>
@@ -207,7 +92,6 @@
     
         <div v-if="store.prevLang == store.lang" class="typewriter">
             <vue-typewriter-effect
-                ref="twRef"
                 deleteSpeed="0"
                 delay="50"
                 :strings="translatedPhrases" 
@@ -217,29 +101,46 @@
 
         </div>
 
-        <v-container class="h-100">
+        <v-container id="features">
 
-            <vueper-slides 
-                autoplay
-                infinite
-                slide-ratio="0.3"
-                :gap="3"
-                :visible-slides="3"
-                :breakpoints="slidesBP"
-                class="no-shadow"
-                >
+            <v-row>
 
-                <vueper-slide
-                    v-for="(slide, i) in slides"
-                    :key="i"
-                    :title="slide.title"
-                    :content="slide.content"
-                    :image="slide.image"
-                    @click="teste"
-                >
-                </vueper-slide>
-                
-            </vueper-slides>
+                <v-col md='4' cols="12">
+
+                    <v-sheet class="pa-4 text-center" elevation="1">
+                        <v-icon color="blue" icon="mdi-code-braces-box" class="feat-icon" size="64"></v-icon>
+                        <h2>Frontend</h2>
+                        <p>Vue, Ionic, Cordova, Firebase, SASS, jQuery</p>
+                    </v-sheet>
+
+                </v-col>
+
+                <v-col  md='4' cols="12">
+
+                    <v-sheet class="pa-4 text-center" elevation="1">
+                        <v-icon color="green" icon="mdi-database-outline" class="feat-icon" size="64"></v-icon>
+                        <h2>Backend</h2>
+                        <p>Laravel, Code Igniter, Docker, cPanel, SSH, MySQL, Apache</p>
+                    </v-sheet>
+
+                </v-col>
+
+                <v-col  md='4' cols="12">
+
+                    <v-sheet class="pa-4 text-center" elevation="1">
+                        <v-icon color="red" icon="mdi-lifebuoy" class="feat-icon" size="64"></v-icon>
+                        <h2>Consultoria</h2>
+                        <p>Team Leader, Manutenção de Sistema Legado, Pair Programming</p>
+                    </v-sheet>
+
+                </v-col>
+
+            </v-row>
+
+            
+        </v-container>
+
+        <v-container>
 
             <div id="cta" class="mt-4">
                 
@@ -249,6 +150,11 @@
                     e viabilizar sua ideia
                 </p>
 
+                <p>
+                    Desenvolvimento: <strong>US$ 50,00 por hora</strong> <br />
+                    Consultoria: <strong>US$ 30,00 por hora</strong>
+                </p>
+
                 <div class='d-flex justify-md-end justify-sm-end justify-center'>
                 <Link href="/contato" >
                     <v-btn prepend-icon="mdi-message" size="large">Entrar em contato</v-btn>
@@ -256,17 +162,6 @@
                 </div>
             </div>
 
-
-            <vue-word-cloud
-                class="w-100 h-25"
-                :words="myWords"
-                :color="myColors"
-                :font-weight="myWeights"
-                spacing="0.2"
-                font-family="Ubuntu"
-            />
-
-            
         </v-container>
 
         

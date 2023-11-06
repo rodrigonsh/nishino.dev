@@ -147,6 +147,16 @@ a{
     font-weight: 900;
 }
 
+#features
+{
+    background-color: #f2f2f2;
+}
+
+.feat-icon
+{
+    margin: 0px auto 20px;
+}
+
 #cta
 {
     border-radius: 5px;
@@ -193,3 +203,8 @@ a{
 .v-application[lang="pt"] [lang~="pt"]{ display: block; }
 .v-application[lang="en"] [lang~="en"]{ display: block; }
 .v-application[lang="es"] [lang~="es"]{ display: block; }
+
+#end
+{
+    background-color: rgb(238, 238, 238);
+}

@@ -1,17 +1,21 @@
 import { defineStore } from 'pinia';
 
 export const useAppStore = defineStore({
+  
   id: 'app',
+  
   state: () => ({
 
     prevLang: 'pt',
     lang: 'pt',
 
     langIndex: 0,
-    langs: ['pt', 'en', 'es']
+    langs: ['pt', 'en', 'es'],
 
   }),
+
   actions: {
+
     toggleLang() {
       
         let self = this
@@ -26,6 +30,7 @@ export const useAppStore = defineStore({
         }, 10)
 
     },
-    // Outras ações para gerenciar o estado
+  
+
   },
 });

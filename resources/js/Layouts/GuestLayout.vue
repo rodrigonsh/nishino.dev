@@ -184,7 +184,8 @@ export default {
         <v-spacer></v-spacer>
 
         <v-btn @click="changeLang">
-          {{ getLang }}
+            <v-icon icon="mdi-translate" class="mr-3"></v-icon>
+            {{ getLang }}
         </v-btn>
                                   
 
