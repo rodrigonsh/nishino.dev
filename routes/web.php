@@ -25,8 +25,8 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => false,
         'canRegister' => false,
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        
+        
         'projetos' => Project::all()
     ]);
 });
@@ -35,10 +35,32 @@ Route::get('/about', function () {
     return Inertia::render('About', [
         'canLogin' => false,
         'canRegister' => false,
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        
+        
     ]);
 })->name('about');
+
+
+Route::get('/frontend', function () {
+    return Inertia::render('Frontend', [
+        'canLogin' => false,
+        'canRegister' => false,
+    ]);
+})->name('frontend');
+
+Route::get('/backend', function () {
+    return Inertia::render('Backend', [
+        'canLogin' => false,
+        'canRegister' => false,
+    ]);
+})->name('backend');
+
+Route::get('/consultoria', function () {
+    return Inertia::render('Consultoria', [
+        'canLogin' => false,
+        'canRegister' => false,
+    ]);
+})->name('consultoria');
 
 
 Route::get('/blog', function () {
@@ -46,8 +68,8 @@ Route::get('/blog', function () {
     return Inertia::render('Blog', [
         'canLogin' => false,
         'canRegister' => false,
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        
+        
         'posts' => Post::all()
     ]);
 })->name('blog');
@@ -59,18 +81,31 @@ Route::get('/blog/{slug}', function (string $slug) {
     return Inertia::render('Post', [
         'canLogin' => false,
         'canRegister' => false,
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        
+        
         'post' => $post
     ]);
 })->name('post');
+
+Route::get('/projeto/{slug}', function (string $slug) {
+
+    $projeto = new Project();
+
+    return Inertia::render('Projeto', [
+        'canLogin' => false,
+        'canRegister' => false,
+        
+        
+        'projeto' => $projeto
+    ]);
+})->name('projeto');
 
 Route::get('/contato', function () {
     return Inertia::render('Contact', [
         'canLogin' => false,
         'canRegister' => false,
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        
+        
     ]);
 });
 

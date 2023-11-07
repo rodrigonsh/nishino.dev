@@ -173,7 +173,7 @@ export default {
         </v-container>
     </v-navigation-drawer>
 
-    <v-app-bar class="bg-pokedex">
+    <v-app-bar class="bg-nishino">
 
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 

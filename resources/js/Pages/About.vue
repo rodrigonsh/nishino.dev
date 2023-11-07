@@ -26,7 +26,7 @@ const age = new Date().getFullYear() - 1984
 
     <v-container class="h-100">
 
-        <img id="young-me" src="/img/young-me.jpg" />
+        <img id="young-me" src="/img/me.png" />
 
         <p>Hi! I’m Rodrigo, {{ age }} years, FullStack Developer and Sofia’s father ❤️. I live in Campo Grande / MS - Brazil</p>
 

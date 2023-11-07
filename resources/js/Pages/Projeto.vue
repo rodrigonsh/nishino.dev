@@ -63,14 +63,12 @@
     
     <GuestLayout :canLogin="canRegister" :canRegister="canRegister" title="NISHINO">
     
-        <v-container>
-
-            <vueper-slides 
+        <vueper-slides 
                 autoplay
                 infinite
-                slide-ratio="0.3"
+                slide-ratio="0.4"
                 :gap="3"
-                :visible-slides="3"
+                :visible-slides="1"
                 :breakpoints="slidesBP"
                 class="no-shadow"
                 >
@@ -86,6 +84,22 @@
                 </vueper-slide>
                 
             </vueper-slides>
+
+        <v-container>
+
+            <div class="descr">
+
+<h1>Diário Corumbaense</h1>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+
+<v-chip class="mr-1">PHP</v-chip>
+<v-chip class="mr-1">SCSS</v-chip>
+<v-chip class="mr-1">200K+ Visitors</v-chip>
+<v-chip class="mr-1">Main Developer</v-chip>
+
+</div>
+
 
             
         </v-container>
