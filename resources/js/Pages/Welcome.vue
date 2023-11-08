@@ -121,7 +121,7 @@
                     <v-sheet class="pa-4 text-center" elevation="1">
                         <v-icon color="red" icon="mdi-lifebuoy" class="feat-icon" size="64"></v-icon>
                         <h2 lang="pt">Consultoria</h2>
-                        <h2 lang="en">Consulting</h2>
+                        <h2 lang="en">Consultancy</h2>
                         <h2 lang="es">Consultoría</h2>
 
                         <p lang="pt">Team Leader, Manutenção de Sistema Legado, Pair Programming</p>

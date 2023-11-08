@@ -51,6 +51,11 @@ const enviar = () => {
 
             <h2 class="mb-4">Vamos realizar seu sonho!</h2>
 
+            <p>
+                Ao analisar suas necessidades e experiência específicas, 
+                enviarei uma proposta de valor atraente adaptada à sua realidade
+            </p>
+
             <v-text-field 
                 prepend-inner-icon="mdi-account" 
                 v-model="form.name" 

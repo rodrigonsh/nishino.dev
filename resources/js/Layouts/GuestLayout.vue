@@ -79,7 +79,7 @@ export default {
                 <img src="/img/logo-nsh.svg" class="app-logo d-block w-100 mb-3" />
 
                 <span lang="pt" class="text-center">Consultoria & Desenvolvimento</span>
-                <span lang="en" class="text-center">Consulting & Development </span>
+                <span lang="en" class="text-center">Consultancy & Development </span>
                 <span lang="es" class="text-center">Consultoría & Desarrollo</span>
 
             </Link>

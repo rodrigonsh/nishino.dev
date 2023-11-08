@@ -7,13 +7,13 @@
 
     <div >
         
-        <h1 lang="pt">Vamos construir o projeto dos seus sonhos!</h1>
-        <h1 lang="en">Lets build the project of your dreams!</h1>
-        <h1 lang="es">¡Construyamos el proyecto de tus sueños!</h1>
+        <h1 class="mb-6" lang="pt">Vamos construir o projeto dos seus sonhos!</h1>
+        <h1 class="mb-6" lang="en">Lets build the project of your dreams!</h1>
+        <h1 class="mb-6" lang="es">¡Construyamos el proyecto de tus sueños!</h1>
 
+        
         <p lang="pt">
-            Vai montar um website? App? Vamos marcar uma reunião
-            e viabilizar sua ideia
+            Entre em contato comigo hoje mesmo para saber mais sobre como posso ajudar sua empresa a alcançar seus objetivos.
         </p>
 
         <p lang="en">
