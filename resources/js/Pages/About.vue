@@ -3,7 +3,7 @@
 import {Head, Link, useForm} from '@inertiajs/vue3';
 
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-
+import CTA from '@/Components/CTA.vue';
 
 
 defineProps({
@@ -24,7 +24,7 @@ const age = new Date().getFullYear() - 1984
     
     <Head title="Sobre" />
 
-    <v-container class="h-100">
+    <v-container>
 
         <img id="young-me" src="/img/me.png" />
 
@@ -63,6 +63,7 @@ const age = new Date().getFullYear() - 1984
 
     </v-container>
         
-        
+    <CTA></CTA>    
+
 </GuestLayout>
 </template>

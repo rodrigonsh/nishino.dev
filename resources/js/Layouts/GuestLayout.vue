@@ -78,9 +78,9 @@ export default {
             <Link id="menuLogo" href="/" class="d-block w-75 my-6 mx-auto">
                 <img src="/img/logo-nsh.svg" class="app-logo d-block w-100 mb-3" />
 
-                <span lang="pt" class="text-center">Desenvolvimento e Consultoria</span>
-                <span lang="en" class="text-center">Coding and Consulting</span>
-                <span lang="es" class="text-center">Desarrollo y consultoría</span>
+                <span lang="pt" class="text-center">Consultoria & Desenvolvimento</span>
+                <span lang="en" class="text-center">Consulting & Development </span>
+                <span lang="es" class="text-center">Consultoría & Desarrollo</span>
 
             </Link>
 
@@ -125,32 +125,7 @@ export default {
 
             <v-divider class="mb-5"></v-divider>
 
-            <p class="w-100 mb-2">
-                <a href="https://api.whatsapp.com/send?phone=5567981849417" target="_blank">
-                <v-btn variant="outlined" class="d-block w-100 bg-primary text-white">
-                        <v-icon icon="mdi-whatsapp"></v-icon>
-                        Whatsapp
-                    </v-btn>
-                </a>
-            </p>
             
-            <p class="w-100 mb-2">
-                <a href="https://github.com/rodrigonsh" target="_blank">
-                <v-btn variant="outlined" class="d-block w-100 bg-primary text-white">
-                        <v-icon icon="mdi-github"></v-icon>
-                        GitHUB
-                    </v-btn>
-                </a>
-            </p>
-        
-            <p class="w-100">
-                <a href="mailto:rodrigo.nsh@gmail.com" target="_blank">
-                <v-btn variant="tonal" class="d-block w-100">
-                        <v-icon icon="mdi-email-outline"></v-icon>
-                        Email
-                    </v-btn>
-                </a>
-            </p>
             
             <small>
 
@@ -195,11 +170,12 @@ export default {
     <v-main class="bg-forest">
         <slot />
 
-        <VLayoutItem model-value position="bottom" class="text-end" size="88">
-        <div class="ma-4">
-            <v-btn icon="mdi-whatsapp" @click="fabClicked" size="large" color="green" elevation="8" />
-        </div>
-        </VLayoutItem>
+        <v-container class="bg-footer">
+            <strong>NISHINO LTDA</strong><br />
+                    48.129.023/0001-27
+        </v-container>
+
+        <v-btn id="whats" icon="mdi-whatsapp" @click="fabClicked" size="large" color="green" elevation="8" />
 
     </v-main>
 

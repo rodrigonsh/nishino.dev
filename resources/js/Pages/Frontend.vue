@@ -3,6 +3,7 @@
 import {Head, Link, useForm} from '@inertiajs/vue3';
 
 import GuestLayout from '@/Layouts/GuestLayout.vue';
+import CTA from '@/Components/CTA.vue';
 
 defineProps({
     canLogin: Boolean,
@@ -28,6 +29,7 @@ const age = new Date().getFullYear() - 1984
 
     </v-container>
         
-        
+    <CTA></CTA>
+    
 </GuestLayout>
 </template>

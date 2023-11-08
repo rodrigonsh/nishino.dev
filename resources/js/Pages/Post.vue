@@ -3,7 +3,7 @@
 import {Head, Link, useForm} from '@inertiajs/vue3';
 
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import axios from 'axios';
+import CTA from '@/Components/CTA.vue';
 
 defineProps({
     canLogin: Boolean,
@@ -39,6 +39,7 @@ defineProps({
 
     </div>
 
+    <CTA></CTA>
         
 </GuestLayout>
 </template>

@@ -1,16 +1,12 @@
 <script setup>
 
-    import {Head, Link, useForm} from '@inertiajs/vue3';
-
     import GuestLayout from '@/Layouts/GuestLayout.vue';
+    import CTA from '@/Components/CTA.vue';
 
     import { VueperSlides, VueperSlide } from 'vueperslides'
     import 'vueperslides/dist/vueperslides.css'
 
-    import { computed, ref } from 'vue'
-
-    import { useAppStore } from './../store.js'
-    const store = useAppStore()
+    import { computed } from 'vue'
 
     const props = defineProps({
         canLogin: Boolean,
@@ -21,39 +17,27 @@
         projeto: Array
     });
 
-
-    const slides = [
+    const getChips = function(proj)
     {
-        title: 'Diário Corumbaense',
-        content: 'Portal Jornalístico.',
-        image: '/img/slide-diario.jpg'
-    },
-    {
-        title: 'VitrineVirtual',
-        content: 'Cobertura fotográfica.',
-        image: '/img/slide-vitrine.jpg'
-    },
-    {
-        title: 'Opa21',
-        content: 'App para Delivery.',
-        image: '/img/slide-opa.jpg'
-    },
-    {
-        title: 'Show de Prêmios',
-        content: 'App de Logística',
-        image: '/img/slide-sdp.jpg'
-    },
-    {
-        title: 'CaimaSUL',
-        content: 'Biometria e Coleta',
-        image: '/img/slide-caimasul.jpg'
-    },
-    {
-        title: 'Domicílio Digital',
-        content: 'Em Parceria com MultiSIG',
-        image: '/img/slide-multisig.jpg'
+        return proj.chips.split(', ')
     }
-    ]
+
+    
+    const slides = computed( function()
+    {
+        
+        let ret = []
+        
+        let galeria = JSON.parse(props.projeto.galeria)
+
+        for( var i=0; i < galeria.length; i++ )
+        {
+            ret.push({ image: '/storage/' + galeria[i] })
+        }
+
+        return ret
+
+    } )
 
 
 </script>
@@ -63,14 +47,35 @@
     
     <GuestLayout :canLogin="canRegister" :canRegister="canRegister" title="NISHINO">
     
-        <vueper-slides 
+        <v-container>
+
+            <div class="descr">
+
+                <h1 class='mb-3'>{{ projeto.nome }}</h1>
+
+                <p>
+                    Cliente: <strong>{{ projeto.cliente }}</strong><br />
+                    Data: <strong>{{ projeto.data }}</strong>
+                </p>
+
+                <p lang="pt">{{  projeto.descricao_pt  }}</p>
+                <p lang="en">{{  projeto.descricao_en  }}</p>
+                <p lang="es">{{  projeto.descricao_es  }}</p>
+
+                <v-chip v-for="chip in getChips(projeto)" class="ma-1">{{  chip  }}</v-chip>
+
+                <a v-if="projeto.site" target="_blak" :href="projeto.site">
+                    <v-btn class='d-block mt-5 bg-primary text-white"'>{{ projeto.site }}</v-btn>
+                </a>
+
+                <vueper-slides 
                 autoplay
                 infinite
-                slide-ratio="0.4"
-                :gap="3"
+                slide-ratio="0.565"
                 :visible-slides="1"
                 :breakpoints="slidesBP"
-                class="no-shadow"
+                class="no-shadow my-6"
+                slide-image-inside
                 >
 
                 <vueper-slide
@@ -85,20 +90,14 @@
                 
             </vueper-slides>
 
-        <v-container>
+                <h2 class="mt-5">Mais sobre</h2>
 
-            <div class="descr">
+                <p lang="pt" v-html="projeto.estoria_pt"></p>
+                <p lang="en" v-html="projeto.estoria_en"></p>
+                <p lang="es" v-html="projeto.estoria_es"></p>
 
-<h1>Diário Corumbaense</h1>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-
-<v-chip class="mr-1">PHP</v-chip>
-<v-chip class="mr-1">SCSS</v-chip>
-<v-chip class="mr-1">200K+ Visitors</v-chip>
-<v-chip class="mr-1">Main Developer</v-chip>
-
-</div>
+            </div>
 
 
             

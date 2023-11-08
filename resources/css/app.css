@@ -124,7 +124,7 @@ a{
 {
     #young-me
     {
-        width: 40%;
+        width: 30%;
         float: left;
         margin-right: 32px;
     }
@@ -132,24 +132,14 @@ a{
 
 .vueperslides
 {
-
-}
-.vueperslide
-{
-    background-color: black;
+    --radius: 5px;
+    border-radius: var(--radius);
+    box-shadow: 1px 2px 4px 3px #00000017;
 }
 
-.vueperslide__content-wrapper
-{
-    justify-content: flex-end !important;
-    padding-bottom: 16px;
-    color: white;
-}
+.vueperslide { border-radius: var(--radius); }
+.vueperslide__image { border-radius: var(--radius); }
 
-.vueperslide__title
-{
-    font-weight: 900;
-}
 
 #features
 {
@@ -168,6 +158,8 @@ a{
 
 .projeto .proj-img
 {
+    --img: attr('bg');
+    background-image: var(--img);
     background-size: cover;
     background-position: center;
 }
@@ -180,14 +172,28 @@ a{
     .projeto .descr{ padding: 16px; }
 }
 
+#whats
+{
+    position: fixed;
+    right: 52px;
+    bottom: 52px;
+}
+
+@media ( max-width: 600px )
+{
+    #whats
+    {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+    }   
+}
 
 #cta
 {
-    border-radius: 5px;
     background-color: var(--primary);
     color: white;
     padding: 32px;
-    margin-bottom: 42px;
 }
 
 #cta h1
@@ -200,6 +206,16 @@ a{
 #cta .v-btn
 {
     font-weight: bold;
+}
+
+.bg-footer
+{
+    background-color: #e6e6e6;
+    color: gray;
+    text-shadow: 1px 2px 0px white;
+    text-align: center;
+    padding: 32px !important;
+    font-size: 12px;
 }
 
 #blog img

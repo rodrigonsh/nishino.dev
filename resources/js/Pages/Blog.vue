@@ -3,7 +3,7 @@
 import {Head, Link, useForm} from '@inertiajs/vue3';
 
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import axios from 'axios';
+import CTA from '@/Components/CTA.vue';
 
 defineProps({
     canLogin: Boolean,
@@ -23,7 +23,7 @@ defineProps({
     
     <Head title="Sobre" />
 
-    <v-container class="h-100" id="blog">
+    <v-container id="blog">
        
         <v-row no-gutters>
 
@@ -53,6 +53,7 @@ defineProps({
 
     </v-container>
         
-        
+    <CTA></CTA>    
+
 </GuestLayout>
 </template>

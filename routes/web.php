@@ -25,8 +25,6 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => false,
         'canRegister' => false,
-        
-        
         'projetos' => Project::all()
     ]);
 });
@@ -89,15 +87,14 @@ Route::get('/blog/{slug}', function (string $slug) {
 
 Route::get('/projeto/{slug}', function (string $slug) {
 
-    $projeto = new Project();
+    $projeto = Project::where('slug', $slug)->firstOrFail();
 
     return Inertia::render('Projeto', [
         'canLogin' => false,
         'canRegister' => false,
-        
-        
         'projeto' => $projeto
     ]);
+    
 })->name('projeto');
 
 Route::get('/contato', function () {
