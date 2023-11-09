@@ -20,7 +20,7 @@ const age = new Date().getFullYear() - 1984
     
     <Head title="Frontend" />
 
-    <v-container class="h-100">
+    <v-container class="longtext">
 
         <h1>Frontend</h1>
 
@@ -35,9 +35,12 @@ const age = new Date().getFullYear() - 1984
         <p></p>
 
         <p>
-            Entretanto meu framework favorito é <strong>VueJS</strong>, esta página é feita em vuetify. 
-            Você pode mencionar que você é um desenvolvedor VueJS experiente e que pode ajudá-lo a criar aplicativos 
-            móveis modernos e eficientes.
+            Entretanto meu framework favorito é <strong>VueJS</strong>, esta página é feita em <strong>vuetify</strong>. 
+            Trabalhei com sistemas criando 
+            <strong>componentes reutilizáveis</strong>,
+            <strong>acesso a APIs</strong>,
+            <strong>stores (Vuex e Pinia)</strong> e
+            <strong>bibliotecas de terceiros</strong>
         </p>
 
 

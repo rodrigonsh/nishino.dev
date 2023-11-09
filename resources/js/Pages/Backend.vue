@@ -20,7 +20,7 @@ const age = new Date().getFullYear() - 1984
     
     <Head title="Backend" />
 
-    <v-container class="">
+    <v-container class="longtext">
 
         <h1 class="mb-6">Backend</h1>
 
