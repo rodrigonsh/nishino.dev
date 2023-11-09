@@ -16,14 +16,12 @@
             Entre em contato comigo hoje mesmo para saber mais sobre como posso ajudar sua empresa a alcançar seus objetivos.
         </p>
 
-        <p lang="en">
-            ¿Vas a montar un sitio web? ¿Aplicación? Organicemos una reunión
-             y hacer viable tu idea
+        <p lang="es">
+            Contácteme hoy para obtener más información sobre cómo puedo ayudar a su empresa a alcanzar sus objetivos.
         </p>
 
-        <p lang="es">
-            Are you going to set up a website? App? Let's set up a meeting
-             and make your idea viable
+        <p lang="en">
+            Contact me today to learn more about how I can help your business achieve its goals.
         </p>
 
         <p lang="pt">
@@ -38,7 +36,7 @@
 
         <p lang="en">
             Development: <strong>US$ 50,00 / hour</strong> <br />
-            Consulting: <strong>US$ 30,00 / hour</strong>
+            Consultancy: <strong>US$ 30,00 / hour</strong>
         </p>
 
         <div class='d-flex justify-md-end justify-sm-end justify-center'>

@@ -248,6 +248,13 @@ a{
 .v-application[lang="en"] .v-btn[lang~="en"]{ display: inline-grid; }
 .v-application[lang="es"] .v-btn[lang~="es"]{ display: inline-grid; }
 
+.v-application[lang="pt"] li[lang~="pt"]{ display: list-item; }
+.v-application[lang="en"] li[lang~="en"]{ display: list-item; }
+.v-application[lang="es"] li[lang~="es"]{ display: list-item; }
+
+p:not([lang]){ color: red !important; }
+li:not([lang]){ color: red !important; }
+button:not([lang]){ color: red !important; }
 
 #end
 {

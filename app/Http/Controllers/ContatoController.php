@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Lead;
 use App\Mail\NewLeadMail;
 use Illuminate\Support\Facades\Mail;
-
+use Inertia\Inertia;
 
 class ContatoController extends Controller
 {
@@ -19,7 +19,17 @@ class ContatoController extends Controller
         $lead->fill($r->all());
         $lead->save();
 
-        Mail::to("rodrigo.nsh@gmail.com")->send(new NewLeadMail($lead)); 
+        try
+        {
+            Mail::to("rodrigo.nsh@gmail.com")->send(new NewLeadMail($lead)); 
+        }
+
+        catch(\Exception $e)
+        {
+            return Inertia::render('Error', [
+                'error_message' => 'Ocorreu um erro ao enviar o e-mail. Por favor, tente novamente mais tarde.',
+            ])->toResponse(request());
+        }
 
     }
 }

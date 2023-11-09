@@ -74,10 +74,10 @@ const age = new Date().getFullYear() - 1984
         </p>
         <p lang="es">
             En aquella época <a target="_blank" href="https://estudioeureka.com.br/">mi hermano</a> 
-            trabajaba en un periódico local llamado Gazeta.
+            trabajaba en un periódico local llamado Gazeta
             Corumbaense creando anuncios y maquetaciones cuando apareció la oportunidad para 
             desarrollar un sitio web para uno de los clientes. Mi hermano diseñó la página web y
-            yo lo programé en DreamWeaver.
+            yo la programé en DreamWeaver.
         </p>
 
 
