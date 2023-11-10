@@ -125,21 +125,16 @@ const getSuccessData = function(field)
 const enviar = () => {
     console.log('opA!')
     form.post(route('enviar', form), {
-        onSuccess: (response) => {
-
-            console.log(response)
+        onSuccess: () => {
             
-            if ( response.status == 200 )
-            {
-                Swal.fire({
-                    title: getSuccessData('title'),
-                    text: getSuccessData('text'),
-                    icon: 'success',
-                    confirmButtonText: getSuccessData('confirmButtonText')
-                    })
+            Swal.fire({
+                title: getSuccessData('title'),
+                text: getSuccessData('text'),
+                icon: 'success',
+                confirmButtonText: getSuccessData('confirmButtonText')
+                })
 
-                return
-            }
+            return
 
         },
         onError: () => {
@@ -219,7 +214,7 @@ const enviar = () => {
                 v-model="form.body" 
                 :label="getLabel('body')" 
             />
-            
+
             <v-select 
                 prepend-inner-icon="mdi-currency-usd" 
                 v-model="form.orcamento" 
