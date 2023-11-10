@@ -1,16 +1,26 @@
 import { defineStore } from 'pinia';
 
+let navLang = navigator.language.split('-')[0]
+const appLangs = ['pt', 'en', 'es']
+var appInitLang = 'en'
+var appInitLangIDX = appLangs.includes(navLang) ? appLangs.indexOf(navLang) : 1;
+
+if ( appInitLangIDX > -1 )
+{
+  appInitLang = appLangs[ appInitLangIDX ]
+}
+
 export const useAppStore = defineStore({
   
   id: 'app',
   
   state: () => ({
 
-    prevLang: 'pt',
-    lang: 'pt',
+    prevLang: appInitLang,
+    lang: appInitLang,
 
-    langIndex: 0,
-    langs: ['pt', 'en', 'es'],
+    langIndex: appInitLangIDX,
+    langs: appLangs,
 
   }),
 

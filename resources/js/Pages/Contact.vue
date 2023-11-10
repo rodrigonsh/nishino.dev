@@ -21,12 +21,13 @@ defineProps({
 const years = new Date().getFullYear() - 2001
 
 var form = useForm({
-    email: null,
+    cta: null,
     whatsapp: null,
+    email: null,
     name: null,
     address: null,
+    body: null,
     orcamento: null,
-    cta: null,
 });
 
 const randIdx = Math.floor(Math.random() * 2)
@@ -66,6 +67,11 @@ const getLabel = function(field)
             'en': 'Address',
             'es': 'Ubicación',
         },
+        'body': {
+            'pt': 'Descreva o Projeto',
+            'en': 'Project Description',
+            'es': 'Descripción del Proyecto',
+        },
         'orcamento': {
             'pt': 'Orçamento',
             'en': 'Budget',
@@ -99,7 +105,18 @@ const getSuccessData = function(field)
             'pt': 'Maravilha',
             'en': 'Cool',
             'es': '¡Genial!',
-        }
+        },
+
+        'error_title': {
+            'pt': 'Erro!',
+            'en': 'Error!',
+            'es': '¡Erro!',
+        },
+        'error_text': {
+            'pt': 'Vamos retornar o contato o mais rápido possível',
+            'en': 'We will get back in touch as soon as possible',
+            'es': 'Nos pondremos en contacto lo antes posible.',
+        },
     }
 
     return labels[field][store.lang]
@@ -110,8 +127,8 @@ const enviar = () => {
     form.post(route('enviar', form), {
         onSuccess: (response) => {
 
-            console.log('heeeyyyyy')
-
+            console.log(response)
+            
             if ( response.status == 200 )
             {
                 Swal.fire({
@@ -124,21 +141,15 @@ const enviar = () => {
                 return
             }
 
-            console.log('opaa!')
+        },
+        onError: () => {
 
             Swal.fire({
                 title: getSuccessData('title_error'),
                 text: getSuccessData('text_error'),
                 icon: 'error',
                 confirmButtonText: 'OK'
-                })            
-
-        },
-        onVisitError: () => {
-
-            console.log('cara')
-
-            alert("HEY!")
+                })       
         },
     });
 }
@@ -196,12 +207,19 @@ const enviar = () => {
             />
 
 
+            
+            <v-textarea 
+            prepend-inner-icon="mdi-map" 
+            v-model="form.address" 
+            :label="getLabel('endereco')" 
+            />
+            
             <v-textarea 
                 prepend-inner-icon="mdi-map" 
-                v-model="form.address" 
-                :label="getLabel('endereco')" 
+                v-model="form.body" 
+                :label="getLabel('body')" 
             />
-
+            
             <v-select 
                 prepend-inner-icon="mdi-currency-usd" 
                 v-model="form.orcamento" 

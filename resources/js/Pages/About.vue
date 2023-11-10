@@ -117,7 +117,7 @@ const age = new Date().getFullYear() - 1984
         </p>
 
 
-        <img class="w-100" src="/img/sofia.jpg" />
+        <img class="w-100 rounded" src="/img/sofia.jpg" />
         
     </v-container>
         
