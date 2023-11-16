@@ -13,40 +13,32 @@
 
         
         <p lang="pt">
-            Entre em contato comigo hoje mesmo para saber mais sobre como posso ajudar sua empresa a alcançar seus objetivos.
+            Converse com nossa AI  e feche hoje mesmo seu contrato
         </p>
 
         <p lang="es">
-            Contácteme hoy para obtener más información sobre cómo puedo ayudar a su empresa a alcanzar sus objetivos.
+            Habla con nuestra IA y cierra tu contrato hoy
         </p>
 
         <p lang="en">
-            Contact me today to learn more about how I can help your business achieve its goals.
+            Talk to our AI and close your contract today
         </p>
 
-        <p lang="pt">
-            Desenvolvimento: <strong>US$ 50,00 / hora</strong> <br />
-            Consultoria: <strong>US$ 30,00 por hora</strong>
-        </p>
-
-        <p lang="es">
-            Desarollo: <strong>US$ 50,00 / hora</strong> <br />
-            Consultoría: <strong>US$ 30,00 por hora</strong>
-        </p>
-
-        <p lang="en">
-            Development: <strong>US$ 50,00 / hour</strong> <br />
-            Consultancy: <strong>US$ 30,00 / hour</strong>
-        </p>
-
-        <div class='d-flex justify-md-end justify-sm-end justify-center'>
-        <Link href="/contato" >
-            <v-btn lang="pt" prepend-icon="mdi-message" size="large">Entrar em contato</v-btn>
-            <v-btn lang="en" prepend-icon="mdi-message" size="large">Get in touch</v-btn>
-            <v-btn lang="es" prepend-icon="mdi-message" size="large">Cuenta conmigo</v-btn>
-        </Link>
-        </div>
+        
     </div>
+    <Link href="/harvey" >
+            <v-btn lang="pt" prepend-icon="mdi-message" size="x-large">Fale com Harvey</v-btn>
+            <v-btn lang="en" prepend-icon="mdi-message" size="x-large">Talk to Harvey</v-btn>
+            <v-btn lang="es" prepend-icon="mdi-message" size="x-large">Hable con harvey</v-btn>
+        </Link>
 
 </v-container>
+
+
+<v-container class="bg-footer">
+    <strong>NISHINO LTDA</strong><br />
+    48.129.023/0001-27
+</v-container>
+
+
 </template>

@@ -4,6 +4,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -107,6 +108,12 @@ Route::get('/contato', function () {
 });
 
 Route::post('/contato', [ContatoController::class, 'enviar'])->name('enviar');
+
+Route::get('/harvey', [ChatController::class, 'index'])->name('chat');
+Route::post('/harvey', [ChatController::class, 'message'])->name('message');
+
+Route::get('/harvey/debug', [ChatController::class, 'debug'])->name('hdebug');
+
 
 /*
 Route::get('/dashboard', function () {

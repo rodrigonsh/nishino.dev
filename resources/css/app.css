@@ -191,16 +191,63 @@ a{
 
 #cta
 {
-    background-color: var(--primary);
-    color: white;
-    padding: 32px;
+    height: 500px;
+    align-items: end;
+    display: flex;
+    flex-direction: row;
+    gap: 128px;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0),var(--primary)), url('/img/harvey-cta.jpg');
+    background-size: cover; 
+    background-position: top right; /* or adjust as needed */
+    padding: 128px 32px;
 }
 
 #cta h1
 {
+    color: white;
     line-height: 1em;
     margin-bottom: 12px;
+    width: 50%;
+    font-size: 3em;
 }
+
+@media (max-width: 968px ) {
+    #cta
+    {
+        height: unset;
+        flex-direction: column;
+        padding: 30px;
+        justify-content: end;
+        align-items: center;
+        text-align: center;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0),var(--primary)), url('/img/harvey-cta.jpg') center;
+        background-size: cover;
+        width: 100%;
+        aspect-ratio: 1/2;
+        gap: 16px;
+    }
+
+    #cta h1
+    {
+        width: 80%;
+        font-size: 2em;
+    }
+
+    #cta p
+    {
+        width: 80%;
+    }
+
+    #cta div
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+#cta p{ color: white; }
+
 
 #contato .v-btn,
 #cta .v-btn
@@ -273,3 +320,52 @@ ul
     background-image: url(/img/newsprint.png);
     background-position: top right;
 }
+
+#chat
+{
+    height: calc( 100vh - 65px );
+    display: flex;
+    flex-direction: column;
+
+}
+
+.chatMessages
+{
+    flex-grow: 1;
+    flex-shrink: 1;
+    font-size: 20px;
+    overflow: auto;
+    height: 100%;
+}
+
+.chatMessages.loading
+{
+    background-image: url(/img/loading.gif);
+    background-position:  center 90%;
+    padding-bottom: 74px;
+}
+
+.chatMessages strong{ font-size: 14px; }
+
+.chatMessage
+{
+    display: flex;
+}
+
+.chatMessage p.harvey strong
+{
+    color:var(--primary)
+}
+
+#send
+{
+    display: flex;
+    flex-direction: row;
+    flex-direction: 0;
+    flex-shrink: 0;
+    gap: 10px;
+    background-color: #f2f2f2;
+    padding: 16px;
+}
+
+#send .v-input__details{ display: none; }

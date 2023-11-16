@@ -111,7 +111,7 @@ export default {
 
                     <v-divider />
 
-                    <Link href="/contato">
+                    <Link href="/harvey">
                     <v-list-item 
                         prepend-icon="mdi-message"
                         :title="getContactTrans"
@@ -170,12 +170,7 @@ export default {
     <v-main class="bg-forest">
         <slot />
 
-        <v-container class="bg-footer">
-            <strong>NISHINO LTDA</strong><br />
-                    48.129.023/0001-27
-        </v-container>
-
-        <v-btn id="whats" icon="mdi-whatsapp" @click="fabClicked" size="large" color="green" elevation="8" />
+        <!--v-btn id="whats" icon="mdi-whatsapp" @click="fabClicked" size="large" color="green" elevation="8" /-->
 
     </v-main>
 

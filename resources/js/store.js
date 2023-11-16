@@ -22,6 +22,11 @@ export const useAppStore = defineStore({
     langIndex: appInitLangIDX,
     langs: appLangs,
 
+    chatLoading: false,
+    chatMessages: [
+      {key: 0, user: "Harvey Wood", message: "Hola! Now to business!"}
+    ]
+
   }),
 
   actions: {
@@ -40,7 +45,13 @@ export const useAppStore = defineStore({
         }, 10)
 
     },
-  
+
+
+    setUserMessage(msg) { this.chatMessages.push({key: new Date().valueOf() , 'user': 'Você', 'message': msg }) },
+    
+    setAssistantMessage(msg) { this.chatMessages.push({key: new Date().valueOf() ,'user': 'Harvey Wood', 'message': msg }) },
+    
+    setChatStatus( status ){ console.log('setando status', status); this.chatLoading = status }
 
   },
 });
