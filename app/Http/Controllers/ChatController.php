@@ -243,6 +243,11 @@ class ChatController extends Controller
                 return "REQUIRES ACTION!";
             }
 
+            if ( $threadStatus == "failed" )
+            {
+                return "Failed, try again?";
+            }
+
             $result = OpenAI::threads()->messages()->list($threadId, [
                 'limit' => 5,
             ]);
