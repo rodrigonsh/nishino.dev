@@ -170,7 +170,10 @@ export default {
     <v-main class="bg-forest">
         <slot />
 
-        <!--v-btn id="whats" icon="mdi-whatsapp" @click="fabClicked" size="large" color="green" elevation="8" /-->
+        <v-container class="bg-footer">
+            <strong>NISHINO LTDA</strong><br />
+            48.129.023/0001-27
+        </v-container>
 
     </v-main>
 

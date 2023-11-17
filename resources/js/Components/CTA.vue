@@ -3,7 +3,7 @@
 </script>
 
 <template>
-<v-container id="cta" class="mt-4">
+<v-container id="cta">
 
     <div >
         
@@ -27,18 +27,10 @@
         
     </div>
     <Link href="/harvey" >
-            <v-btn lang="pt" prepend-icon="mdi-message" size="x-large">Fale com Harvey</v-btn>
-            <v-btn lang="en" prepend-icon="mdi-message" size="x-large">Talk to Harvey</v-btn>
-            <v-btn lang="es" prepend-icon="mdi-message" size="x-large">Hable con harvey</v-btn>
-        </Link>
+        <v-btn lang="pt" prepend-icon="mdi-message" size="x-large">Fale com Harvey</v-btn>
+        <v-btn lang="en" prepend-icon="mdi-message" size="x-large">Talk to Harvey</v-btn>
+        <v-btn lang="es" prepend-icon="mdi-message" size="x-large">Hable con harvey</v-btn>
+    </Link>
 
-</v-container>
-
-
-<v-container class="bg-footer">
-    <strong>NISHINO LTDA</strong><br />
-    48.129.023/0001-27
-</v-container>
-
-
+</v-container>  
 </template>

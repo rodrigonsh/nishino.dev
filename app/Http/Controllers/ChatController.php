@@ -51,6 +51,8 @@ class ChatController extends Controller
                 $threadId = $res['id'];
                 Session::put('threadId', $threadId);
         
+                Log::debug("NEW THREAD: $threadId");
+
             }
 
             $langs = 
@@ -61,11 +63,13 @@ class ChatController extends Controller
             ];
 
             
-
+            
+            Log::debug("USER: ".$r->get('message'));
             $response = OpenAI::threads()->messages()->create($threadId, [
                 'role' => 'user',
                 'content' => $r->get('message').$langs[$lang],
             ]);
+
 
 
             // run it 
@@ -138,7 +142,7 @@ class ChatController extends Controller
 
                                     $fillData['name'] = $fillData['name'] ?? 'Unknown';
                                     $fillData['body'] = $fillData['summary'] ?? 'Unknown';
-                                    $fillData['origin'] = $fillData['company'] ?? 'Unknown' .' - '. ($fillData['job'] ?? 'Unknown');
+                                    $fillData['origin'] = $fillData['company'] ?? 'Unknown';
                                     $fillData['address'] = $fillData['location'] ?? 'Unknown';
                                     $fillData['city'] = $fillData['location'] ?? 'Unknown';
                                     $fillData['orcamento'] = $fillData['budget'] ?? 'Unknown';
@@ -164,12 +168,10 @@ class ChatController extends Controller
 
                                 case 'abort_chat':
 
-                                    $arguments = (array) json_decode($call['function']['arguments']);
-
-                                    Log::debug("Desrespeito detectado");
-                                    Log::debug($arguments);
-
+                                    $arguments = (array) json_decode($call['function']['arguments']);                                  
                                     $level = (int) $arguments['level'];
+
+                                    Log::debug("Desrespeito detectado! Level: $level");
 
                                     if ( $level <= 5 )
                                     {
@@ -198,7 +200,7 @@ class ChatController extends Controller
                                         $over = [
                                             'pt' => "Conversa encerrada.",
                                             'en' => "Chat ended.",
-                                            'es' => "La conversación terminó"
+                                            'es' => "La conversación terminó."
                                         ];
 
                                         $outputs[] = $over[$lang];  
@@ -254,9 +256,11 @@ class ChatController extends Controller
 
             $arr = $result->toArray();
 
-            Log::debug($arr['data'][0]['role']);
+            $role = $arr['data'][0]['role'];
+            $mensagem = $arr['data'][0]['content'][0]['text']['value'];
+            Log::debug("$role: $mensagem");
 
-            return $arr['data'][0]['content'][0]['text']['value'];
+            return $mensagem;
         }
 
         catch(\Exception $e)
