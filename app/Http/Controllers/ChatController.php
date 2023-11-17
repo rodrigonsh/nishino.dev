@@ -30,9 +30,9 @@ class ChatController extends Controller
         if ( Session::get('LIGMA', null) != null )
         {
             $over = [
-                'pt' => "ESSA CONVERSA ACABOU!",
-                'en' => "THIS CONVERSATION IS OVER!",
-                'es' => "ESTA CONVERSACIÓN TERMINÓ!"
+                'pt' => "Conversa encerrada.",
+                'en' => "Chat ended.",
+                'es' => "La conversación terminó"
             ];
 
             sleep(random_int(1, 10));
@@ -196,9 +196,9 @@ class ChatController extends Controller
                                     } else if ($level > 6){
 
                                         $over = [
-                                            'pt' => "LIMITE DE DESRESPEITO ATINGIDO, ESTA CONVERSA ACABOU!",
-                                            'en' => "DISRESPECT LIMIT REACHED, THIS CONVERSATION IS OVER!",
-                                            'es' => "¡LLEGADO EL LÍMITE DE FALTA DE RESPETO, ESTA CONVERSACIÓN SE ACABÓ!"
+                                            'pt' => "Conversa encerrada.",
+                                            'en' => "Chat ended.",
+                                            'es' => "La conversación terminó"
                                         ];
 
                                         $outputs[] = $over[$lang];  
