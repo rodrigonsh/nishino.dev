@@ -55,7 +55,7 @@ class ChatController extends Controller
                 $threadId = $res['id'];
                 Session::put('threadId', $threadId);
         
-                file_put_contents("../storage/threads/$threadId", "Novo thread".PHP_EOL , FILE_APPEND | LOCK_EX);
+                file_put_contents(storage_path("threads/$threadId"), "Novo thread".PHP_EOL , FILE_APPEND | LOCK_EX);
                 Log::debug("NEW THREAD: $threadId");
 
             }
@@ -69,7 +69,7 @@ class ChatController extends Controller
 
             
             
-            file_put_contents("../storage/threads/$threadId", "USER: ".$mensagem.PHP_EOL , FILE_APPEND | LOCK_EX);
+            file_put_contents(storage_path("threads/$threadId"), "USER: ".$mensagem.PHP_EOL , FILE_APPEND | LOCK_EX);
             $response = OpenAI::threads()->messages()->create($threadId, [
                 'role' => 'user',
                 'content' => $mensagem.$langs[$lang],
@@ -104,7 +104,7 @@ class ChatController extends Controller
                 if ( $run['required_action']['type'] != 'submit_tool_outputs' )
                 {
                     $msg = 'requires_action: '.$run['required_action']['type'].PHP_EOL;
-                    file_put_contents("../storage/threads/$threadId", "ERROR: $msg" , FILE_APPEND | LOCK_EX);
+                    file_put_contents(storage_path("threads/$threadId"), "ERROR: $msg" , FILE_APPEND | LOCK_EX);
                     
                     return 'ERROR 1340';
                 }
@@ -149,7 +149,7 @@ class ChatController extends Controller
 
                                     // mandar email
                                     $msg = 'negocio fechado! '.json_encode($fillData).PHP_EOL;
-                                    file_put_contents("../storage/threads/$threadId", "SUCCESS: $msg" , FILE_APPEND | LOCK_EX);
+                                    file_put_contents(storage_path("threads/$threadId"), "SUCCESS: $msg" , FILE_APPEND | LOCK_EX);
 
                                     $lead = new Lead();
                                     $lead->fill($fillData);
@@ -175,7 +175,7 @@ class ChatController extends Controller
                                     $level = (int) $arguments['level'];
 
                                     $msg = "Desrespeito detectado! Level: $level".PHP_EOL;
-                                    file_put_contents("../storage/threads/$threadId", "ABORT: $msg" , FILE_APPEND | LOCK_EX);
+                                    file_put_contents(storage_path("threads/$threadId"), "ABORT: $msg" , FILE_APPEND | LOCK_EX);
 
                                     if ( $level <= 5 )
                                     {
@@ -222,7 +222,7 @@ class ChatController extends Controller
     
                                         // mandar email
                                         $msg = 'send_more_data: '.json_encode($fillData).PHP_EOL;
-                                        file_put_contents("../storage/threads/$threadId", $msg , FILE_APPEND | LOCK_EX);
+                                        file_put_contents(storage_path("threads/$threadId"), $msg , FILE_APPEND | LOCK_EX);
      
                                         Mail::to("rodrigo.nsh@gmail.com")->send(new sendMoreDataMail($fillData)); 
     
@@ -240,7 +240,7 @@ class ChatController extends Controller
 
                                 default:
                                     $msg = "function: ".json_encode($call['function']).PHP_EOL;
-                                    file_put_contents("../storage/threads/$threadId", "WTF: $msg" , FILE_APPEND | LOCK_EX);
+                                    file_put_contents(storage_path("threads/$threadId"), "WTF: $msg" , FILE_APPEND | LOCK_EX);
 
                             }
 
@@ -284,7 +284,7 @@ class ChatController extends Controller
             $mensagem = $arr['data'][0]['content'][0]['text']['value'];
             
             $msg = "$role: $mensagem".PHP_EOL;
-            file_put_contents("../storage/threads/$threadId", "WTF: $msg" , FILE_APPEND | LOCK_EX);
+            file_put_contents(storage_path("threads/$threadId"), "WTF: $msg" , FILE_APPEND | LOCK_EX);
 
             return $mensagem;
         }
