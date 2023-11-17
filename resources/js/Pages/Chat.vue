@@ -82,9 +82,9 @@ const enviar = () => {
                     <p class="harvey">
 
                         <strong>Harvey Wood: <br /></strong>
-                        <span lang="pt">Você está conversando com Harvey, uma AI desenhada para entender suas necessidades e negociar um bom acordo</span>
-                        <span lang="en">You are talking to Harvey, an AI designed to understand your needs and negotiate a good deal</span>
-                        <span lang="es">Estás hablando con Harvey, una IA diseñada para comprender tus necesidades y negociar un buen trato.</span>
+                        <span lang="pt">Você está conversando com Harvey, uma AI desenhada para entender suas necessidades e negociar um bom acordo. Começe me dizendo seu nome e seu endereço de email</span>
+                        <span lang="en">You are talking to Harvey, an AI designed to understand your needs and negotiate a good deal. Start by telling me your name and your email address</span>
+                        <span lang="es">Estás hablando con Harvey, una IA diseñada para comprender tus necesidades y negociar un buen trato. Empieza diciéndome tu nombre y dirección de correo electrónico.</span>
 
                     </p>
 

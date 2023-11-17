@@ -145,6 +145,7 @@ class ChatController extends Controller
                                     $fillData['address'] = $fillData['location'] ?? 'Unknown';
                                     $fillData['city'] = $fillData['location'] ?? 'Unknown';
                                     $fillData['orcamento'] = $fillData['budget'] ?? 'Unknown';
+                                    $fillData['body'] = $fillData['briefing'] ?? 'Unknown';
                                     $fillData['cta'] = "Harvey Wood";
 
                                     // mandar email
