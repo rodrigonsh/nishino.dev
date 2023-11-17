@@ -100,17 +100,7 @@
     
     <GuestLayout :canLogin="canRegister" :canRegister="canRegister" title="NISHINO">
     
-        <div class="typewriter">
-            <vue-typewriter-effect
-                v-if="store.prevLang == store.lang"
-                deleteSpeed="0"
-                delay="50"
-                :strings="translatedPhrases" 
-            />   
-
-            <img src="/img/logo-nsh-white.svg" id="hero-logo" />
-
-        </div>
+        <CTA></CTA>
 
         <v-container id="features">
 
@@ -214,7 +204,18 @@
 
         </v-container>
 
-        <CTA></CTA>
+
+        <div class="typewriter">
+            <vue-typewriter-effect
+                v-if="store.prevLang == store.lang"
+                deleteSpeed="0"
+                delay="50"
+                :strings="translatedPhrases" 
+            />   
+
+            <img src="/img/logo-nsh-white.svg" id="hero-logo" />
+
+        </div>
 
         
         

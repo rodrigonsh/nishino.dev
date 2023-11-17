@@ -23,9 +23,7 @@ export const useAppStore = defineStore({
     langs: appLangs,
 
     chatLoading: false,
-    chatMessages: [
-      {key: 0, user: "Harvey Wood", message: "Hola! Now to business!"}
-    ]
+    chatMessages: []
 
   }),
 

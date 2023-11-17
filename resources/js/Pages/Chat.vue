@@ -75,6 +75,21 @@ const enviar = () => {
 
             <div :class='{ chatMessages:true, loading: store.chatLoading}' ref="messages">
 
+                <div class='chatMessage'>
+
+                    <v-avatar class='mr-2 mt-3' image="/img/harvey-profile.png"></v-avatar>
+
+                    <p class="harvey">
+
+                        <strong>Harvey Wood: <br /></strong>
+                        <span lang="pt">Você está conversando com uma AI desenhada para entender suas necessidades e negociar um bom acordo</span>
+                        <span lang="en">You are talking to an AI designed to understand your needs and negotiate a good deal</span>
+                        <span lang="es">Estás hablando con una IA diseñada para comprender tus necesidades y negociar un buen trato.</span>
+
+                    </p>
+
+                </div>
+
                 <div class='chatMessage' v-for="m in store.chatMessages" :key="m.key">
 
                     <v-avatar v-if="m.user == 'Harvey Wood'" class='mr-2 mt-3' image="/img/harvey-profile.png"></v-avatar>
