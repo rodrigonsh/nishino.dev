@@ -26,6 +26,9 @@ class ChatController extends Controller
     {
 
         $lang = $r->get('lang', 'en');
+        
+        // prevent xterm command abuse
+        $mensagem = str_replace('\x1b', '\\x1b', $r->get('message'));
 
         if ( Session::get('LIGMA', null) != null )
         {
@@ -64,10 +67,10 @@ class ChatController extends Controller
 
             
             
-            Log::debug("USER: ".$r->get('message'));
+            Log::debug("USER: ".$mensagem);
             $response = OpenAI::threads()->messages()->create($threadId, [
                 'role' => 'user',
-                'content' => $r->get('message').$langs[$lang],
+                'content' => $mensagem.$langs[$lang],
             ]);
 
 
