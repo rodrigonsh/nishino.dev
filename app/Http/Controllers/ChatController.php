@@ -9,6 +9,7 @@ use Inertia\Inertia;
 use OpenAI\Laravel\Facades\OpenAI;
 use App\Models\Lead;
 use App\Mail\NewLeadMail;
+use App\Mail\sendMoreDataMail;
 use Illuminate\Support\Facades\Mail;
 
 class ChatController extends Controller
@@ -54,6 +55,7 @@ class ChatController extends Controller
                 $threadId = $res['id'];
                 Session::put('threadId', $threadId);
         
+                file_put_contents("../storage/threads/$threadId", "Novo thread".PHP_EOL , FILE_APPEND | LOCK_EX);
                 Log::debug("NEW THREAD: $threadId");
 
             }
@@ -67,7 +69,7 @@ class ChatController extends Controller
 
             
             
-            Log::debug("USER: ".$mensagem);
+            file_put_contents("../storage/threads/$threadId", "USER: ".$mensagem.PHP_EOL , FILE_APPEND | LOCK_EX);
             $response = OpenAI::threads()->messages()->create($threadId, [
                 'role' => 'user',
                 'content' => $mensagem.$langs[$lang],
@@ -88,25 +90,22 @@ class ChatController extends Controller
             $expectedStatus = ['cancelled', 'failed', 'completed', 'expired', 'requires_action'];
 
             do{
-                Log::debug('checking run status...');
                 sleep(2);
                 $run = OpenAI::threads()->runs()->retrieve($threadId, $runId);
                 $threadStatus = $run->status;
-                Log::debug($threadStatus);
 
             } while ( ! in_array($threadStatus, $expectedStatus)  );
 
 
             if ( $threadStatus == "requires_action" )
             {
-                Log::debug("REQUIRES ACTION!!!!!");
-
                 $run = $run->toArray();
 
                 if ( $run['required_action']['type'] != 'submit_tool_outputs' )
                 {
-                    Log::error('NAO SEI O QUE FAZER!');
-                    Log::debug($run['required_action']['type']);
+                    $msg = 'requires_action: '.$run['required_action']['type'].PHP_EOL;
+                    file_put_contents("../storage/threads/$threadId", "ERROR: $msg" , FILE_APPEND | LOCK_EX);
+                    
                     return 'ERROR 1340';
                 }
                 
@@ -129,9 +128,6 @@ class ChatController extends Controller
                             {
                                 case 'negocio_fechado':
 
-                                    // mandar email
-                                    Log::debug('negocio fechado!');
-
                                     //name
                                     //whatsapp
                                     //origin
@@ -150,6 +146,10 @@ class ChatController extends Controller
                                     $fillData['city'] = $fillData['location'] ?? 'Unknown';
                                     $fillData['orcamento'] = $fillData['budget'] ?? 'Unknown';
                                     $fillData['cta'] = "Harvey Wood";
+
+                                    // mandar email
+                                    $msg = 'negocio fechado! '.json_encode($fillData).PHP_EOL;
+                                    file_put_contents("../storage/threads/$threadId", "SUCCESS: $msg" , FILE_APPEND | LOCK_EX);
 
                                     $lead = new Lead();
                                     $lead->fill($fillData);
@@ -174,7 +174,8 @@ class ChatController extends Controller
                                     $arguments = (array) json_decode($call['function']['arguments']);                                  
                                     $level = (int) $arguments['level'];
 
-                                    Log::debug("Desrespeito detectado! Level: $level");
+                                    $msg = "Desrespeito detectado! Level: $level".PHP_EOL;
+                                    file_put_contents("../storage/threads/$threadId", "ABORT: $msg" , FILE_APPEND | LOCK_EX);
 
                                     if ( $level <= 5 )
                                     {
@@ -214,10 +215,32 @@ class ChatController extends Controller
 
                                     break;
 
-                                default:
+                                    case 'send_more_data':
+                                          
+                                        // TODO: chamar isso num JOB
+                                        $fillData = (array) json_decode($call['function']['arguments']);
+    
+                                        // mandar email
+                                        $msg = 'send_more_data: '.json_encode($fillData).PHP_EOL;
+                                        file_put_contents("../storage/threads/$threadId", $msg , FILE_APPEND | LOCK_EX);
+     
+                                        Mail::to("rodrigo.nsh@gmail.com")->send(new sendMoreDataMail($fillData)); 
+    
+                                        $callOUTPUT = true;
+                                        
+                                        $over = [
+                                            'pt' => "OK {name}! Tudo em ordem! Os novos dados foram enviados",
+                                            'en' => "OK {name}! Everything in order! The new data has been sent",
+                                            'es' => "¡Bien, {name}! ¡Todo en orden! Los nuevos datos han sido enviados."
+                                        ];
+    
+                                        $outputs[] = $over[$lang];
+            
+                                        break;
 
-                                    Log::error('UEEEEE: '.$call['function']['name']);
-                                    Log::debug($call['function']);
+                                default:
+                                    $msg = "function: ".json_encode($call['function']).PHP_EOL;
+                                    file_put_contents("../storage/threads/$threadId", "WTF: $msg" , FILE_APPEND | LOCK_EX);
 
                             }
 
@@ -238,13 +261,11 @@ class ChatController extends Controller
                         ]
                     );
 
-                    Log::debug($response->toArray());
+                    //Log::debug($response->toArray());
                     return implode(" ", $outputs);
 
                 }
 
-
-                Log::debug($run);
                 return "REQUIRES ACTION!";
             }
 
@@ -261,7 +282,9 @@ class ChatController extends Controller
 
             $role = $arr['data'][0]['role'];
             $mensagem = $arr['data'][0]['content'][0]['text']['value'];
-            Log::debug("$role: $mensagem");
+            
+            $msg = "$role: $mensagem".PHP_EOL;
+            file_put_contents("../storage/threads/$threadId", "WTF: $msg" , FILE_APPEND | LOCK_EX);
 
             return $mensagem;
         }
@@ -272,16 +295,6 @@ class ChatController extends Controller
             return "ERROR! Please check logs";
         }
 
-    }
-
-    public function debug()
-    {
-        $threadId = Session::get('threadId');
-        $response2 = OpenAI::threads()->messages()->list($threadId, [
-            'limit' => 10,
-        ]);
-
-        dd($response2);
     }
 
 }
