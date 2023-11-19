@@ -10,3 +10,4 @@
 <br />
 <p>Body: <strong>{{ $lead->body }}</strong></p>
 <p>Orcamento: <strong>{{ $lead->orcamento }}</strong></p>
+<p>Data do Meeting: <strong>{{ $lead->proximo_contato }}</strong></p>

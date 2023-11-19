@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Chat\ChatSubmitToolOptions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 use OpenAI\Laravel\Facades\OpenAI;
-use App\Models\Lead;
-use App\Mail\NewLeadMail;
-use App\Mail\sendMoreDataMail;
-use Illuminate\Support\Facades\Mail;
 
 class ChatController extends Controller
 {
     function index(Request $r)
     {
+
+        Log::debug('Hi there!');
+
         return Inertia::render('Chat', [
             'canLogin' => false,
             'canRegister' => false,    
@@ -75,8 +75,6 @@ class ChatController extends Controller
                 'content' => $mensagem.$langs[$lang],
             ]);
 
-
-
             // run it 
             $res = OpenAI::threads()->runs()->create(
                 threadId: $threadId, 
@@ -111,163 +109,16 @@ class ChatController extends Controller
                 
                 else
                 {
+                    // executar as ferramentas, e pegar a nova resposta do servidor
+                    $result =  ChatSubmitToolOptions::run($threadId, $run);
+                    
+                    $arr = $result->toArray();
+                    Log::debug("OLHA ISSO AQUI!!", $arr);
 
-                    $tool_outputs = [];
-                    $outputs = [];
-
-                    foreach($run['required_action']['submit_tool_outputs']['tool_calls'] as $call)
-                    {
-    
-                        $callID = $call['id'];
-                        $callOUTPUT = 'unknown';
-
-                        if ( $call['type'] == 'function')
-                        {
-
-                            switch( $call['function']['name'] )
-                            {
-                                case 'negocio_fechado':
-
-                                    //name
-                                    //whatsapp
-                                    //origin
-                                    //email
-                                    //orcamento
-                                    //state
-                                    //city
-
-                                    // TODO: chamar isso num JOB
-                                    $fillData = (array) json_decode($call['function']['arguments']);
-
-                                    $fillData['name'] = $fillData['name'] ?? 'Unknown';
-                                    $fillData['body'] = $fillData['summary'] ?? 'Unknown';
-                                    $fillData['origin'] = $fillData['company'] ?? 'Unknown';
-                                    $fillData['address'] = $fillData['location'] ?? 'Unknown';
-                                    $fillData['city'] = $fillData['location'] ?? 'Unknown';
-                                    $fillData['orcamento'] = $fillData['budget'] ?? 'Unknown';
-                                    $fillData['body'] = $fillData['briefing'] ?? 'Unknown';
-                                    $fillData['cta'] = "Harvey Wood";
-
-                                    // mandar email
-                                    $msg = 'negocio fechado! '.json_encode($fillData).PHP_EOL;
-                                    file_put_contents(storage_path("threads/$threadId"), "SUCCESS: $msg" , FILE_APPEND | LOCK_EX);
-
-                                    $lead = new Lead();
-                                    $lead->fill($fillData);
-                                    $lead->save();
-
-                                    Mail::to("rodrigo.nsh@gmail.com")->send(new NewLeadMail($lead)); 
-
-                                    $callOUTPUT = true;
-                                    
-                                    $over = [
-                                        'pt' => "OK! Tudo em ordem! Vou mandar estes dados pro Rodrigo Nishino e ele entrará em contato com você",
-                                        'en' => "OK! Everything in order! I will send this data to Rodrigo Nishino and he will contact you",
-                                        'es' => "¡DE ACUERDO! ¡Todo en orden! Le enviaré estes datos a Rodrigo Nishino y él se pondrá en contacto contigo."
-                                    ];
-
-                                    $outputs[] = $over[$lang];
-        
-                                    break;
-
-                                case 'abort_chat':
-
-                                    $arguments = (array) json_decode($call['function']['arguments']);                                  
-                                    $level = (int) $arguments['level'];
-
-                                    $msg = "Desrespeito detectado! Level: $level".PHP_EOL;
-                                    file_put_contents(storage_path("threads/$threadId"), "ABORT: $msg" , FILE_APPEND | LOCK_EX);
-
-                                    if ( $level <= 5 )
-                                    {
-                                        $over = [
-                                            'pt' => "Desculpe mas esta conversa não está indo a lugar nenhum",
-                                            'en' => "Sorry but this conversation isn't going anywhere",
-                                            'es' => "Lo siento pero esta conversación no va a ninguna parte."
-                                        ];
-
-                                        $outputs[] = $over[$lang];  
-
-
-                                    }
-                                    else if ( $level > 5 && $level <= 6 )
-                                    {
-                                        $over = [
-                                            'pt' => "Um pouco mais de respeito por favor!",
-                                            'en' => "A little more respect please!",
-                                            'es' => "Un poco mas de respeto por favor!"
-                                        ];
-
-                                        $outputs[] = $over[$lang];
-
-                                    } else if ($level > 6){
-
-                                        $over = [
-                                            'pt' => "Conversa encerrada.",
-                                            'en' => "Chat ended.",
-                                            'es' => "La conversación terminó."
-                                        ];
-
-                                        $outputs[] = $over[$lang];  
-                                        Session::put('LIGMA', true);
-                                    }
-
-                                    $callOUTPUT = true;
-
-                                    break;
-
-                                    case 'send_more_data':
-                                          
-                                        // TODO: chamar isso num JOB
-                                        $fillData = (array) json_decode($call['function']['arguments']);
-    
-                                        // mandar email
-                                        $msg = 'send_more_data: '.json_encode($fillData).PHP_EOL;
-                                        file_put_contents(storage_path("threads/$threadId"), $msg , FILE_APPEND | LOCK_EX);
-     
-                                        Mail::to("rodrigo.nsh@gmail.com")->send(new sendMoreDataMail($fillData)); 
-    
-                                        $callOUTPUT = true;
-                                        
-                                        $over = [
-                                            'pt' => "OK {name}! Tudo em ordem! Os novos dados foram enviados",
-                                            'en' => "OK {name}! Everything in order! The new data has been sent",
-                                            'es' => "¡Bien, {name}! ¡Todo en orden! Los nuevos datos han sido enviados."
-                                        ];
-    
-                                        $outputs[] = $over[$lang];
-            
-                                        break;
-
-                                default:
-                                    $msg = "function: ".json_encode($call['function']).PHP_EOL;
-                                    file_put_contents(storage_path("threads/$threadId"), "WTF: $msg" , FILE_APPEND | LOCK_EX);
-
-                            }
-
-                        }
-
-                        $tool_outputs[] = [
-                            'tool_call_id' => $callID,
-                            'output' => $callOUTPUT,
-                        ];
-
-                    }
-
-                    $response = OpenAI::threads()->runs()->submitToolOutputs(
-                        threadId: $threadId,
-                        runId: $runId,
-                        parameters: [
-                            'tool_outputs' => $tool_outputs,
-                        ]
-                    );
-
-                    //Log::debug($response->toArray());
-                    return implode(" ", $outputs);
-
+                    $mensagem = $arr['data'][0]['content'][0]['text']['value'];
+                    return $mensagem;
                 }
 
-                return "REQUIRES ACTION!";
             }
 
             if ( $threadStatus == "failed" )
@@ -285,15 +136,16 @@ class ChatController extends Controller
             $mensagem = $arr['data'][0]['content'][0]['text']['value'];
             
             $msg = "$role: $mensagem".PHP_EOL;
-            file_put_contents(storage_path("threads/$threadId"), "WTF: $msg" , FILE_APPEND | LOCK_EX);
+            file_put_contents(storage_path("threads/$threadId"), $msg , FILE_APPEND | LOCK_EX);
 
             return $mensagem;
         }
 
         catch(\Exception $e)
         {
+            $line = $e->getLine();
             Log::error($e->getMessage());
-            return "ERROR! Please check logs";
+            return "ERROR on #$line Please check logs!";
         }
 
     }
