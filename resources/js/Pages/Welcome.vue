@@ -150,7 +150,7 @@
                     <v-sheet class="pa-4 text-center" elevation="1">
                         <v-icon color="green" icon="mdi-database-outline" class="feat-icon" size="64"></v-icon>
                         <h2>Backend</h2>
-                        <p>Laravel, Code Igniter, Docker, cPanel, SSH, MySQL, Apache</p>
+                        <p>Laravel, Code Igniter, OpenAI, Docker, cPanel, SSH, MySQL, Apache</p>
 
                         <Link href="/backend" >
                             <v-btn lang="pt" variant="outlined">Saiba mais</v-btn>
@@ -178,7 +178,9 @@
 
                 <v-row>
 
-                    <v-col md="3" cols="12" class="proj-img" :style="getBgStyle(proj)"></v-col>
+                    <v-col md="4" cols="12" >
+                        <div class="proj-img" :style="getBgStyle(proj)"></div>
+                    </v-col>
 
                     <v-col md="8" cols="12">
 

@@ -156,15 +156,28 @@ a{
     margin-bottom: 32px;
 }
 
+.projeto.v-card
+{
+    border: 1px solid #00000024;
+}
+
+
+#projetos a:nth-child(even) .v-row
+{
+    flex-direction: row-reverse;
+}
+
+
 .projeto .proj-img
 {
+    height: 100%;
     --img: attr('bg');
     background-image: var(--img);
     background-size: cover;
     background-position: center;
 }
 
-.projeto .descr{ padding: 20px; }
+.projeto .descr{ padding: 40px; }
 
 @media ( max-width: 950px )
 {

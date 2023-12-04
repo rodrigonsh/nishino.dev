@@ -116,6 +116,18 @@ const age = new Date().getFullYear() - 1984
 
         </ul>
         
+        <h2 class="my-6">OpenAI</h2>
+
+        <p lang="pt">
+            Nosso atendente <a href="/harvey">Harvey</a> é um Assistant GPT-3.5-turbo-1106 e posso implementar um desses para seu negócio!
+        </p>
+        <p lang="en">
+            Our assistant <a href="/harvey">Harvey</a> is an Assistant GPT-3.5-turbo-1106 and I can implement one of these for your business!
+        </p>
+        <p lang="es">
+            ¡Nuestro asistente <a href="/harvey">Harvey</a> es un asistente GPT-3.5-turbo-1106 y puedo implementar uno de estos para su negocio!  
+        </p>
+
         <h2 lang="pt" class="my-6">Administração e migração de serviços em nuvem</h2>
         <h2 lang="en" class="my-6">Administration and migration of cloud services</h2>
         <h2 lang="es" class="my-6">Administración y migración de servicios en la nube.</h2>

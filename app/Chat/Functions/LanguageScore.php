@@ -44,8 +44,8 @@ class LanguageScore extends ChatFunction
 
         $resposta = $levels[$level + 1];
 
-        $msg = "Language Score Level: $level $resposta" . PHP_EOL;
-        file_put_contents(storage_path("threads/$threadId"), $msg, FILE_APPEND | LOCK_EX);
+        //$msg = "Language Score Level: $level $resposta" . PHP_EOL;
+        //file_put_contents(storage_path("threads/$threadId"), $msg, FILE_APPEND | LOCK_EX);
 
         return $resposta;
     }

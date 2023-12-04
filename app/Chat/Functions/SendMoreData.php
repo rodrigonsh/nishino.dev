@@ -16,8 +16,8 @@ class SendMoreData extends ChatFunction
         $fillData = (array) json_decode($call['function']['arguments']);
 
         // mandar email
-        $msg = 'send_more_data: ' . json_encode($fillData) . PHP_EOL;
-        file_put_contents(storage_path("threads/$threadId"), $msg, FILE_APPEND | LOCK_EX);
+        //$msg = 'send_more_data: ' . json_encode($fillData) . PHP_EOL;
+        //file_put_contents(storage_path("threads/$threadId"), $msg, FILE_APPEND | LOCK_EX);
 
         Mail::to("rodrigo.nsh@gmail.com")->send(new sendMoreDataMail($fillData));
 

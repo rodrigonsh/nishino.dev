@@ -32,14 +32,14 @@ class NegocioFechado extends ChatFunction
 
         // mandar email
         
-        $lead = new Lead();
+        $lead = Lead::where('thread_id', $threadId)->first();
         $lead->fill($fillData);
         $lead->save();
 
         Mail::to("rodrigo.nsh@gmail.com")->send(new NewLeadMail($lead));
 
-        $msg = 'negocio fechado! ' . json_encode($fillData) . PHP_EOL;
-        file_put_contents(storage_path("threads/$threadId"), "SUCCESS: $msg", FILE_APPEND | LOCK_EX);
+        //$msg = 'negocio fechado! ' . json_encode($fillData) . PHP_EOL;
+        //file_put_contents(storage_path("threads/$threadId"), "SUCCESS: $msg", FILE_APPEND | LOCK_EX);
 
         $over = [
             'pt' => "OK! Tudo em ordem! Vou mandar estes dados pro Rodrigo Nishino e ele entrará em contato com você",

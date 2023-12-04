@@ -3,19 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Chat\ChatSubmitToolOptions;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 use OpenAI\Laravel\Facades\OpenAI;
+use App\Models\Lead;
+use App\Models\LeadHistory;
+
+use App\Mail\NewThreadMail;
+use Illuminate\Support\Facades\Mail;
 
 class ChatController extends Controller
 {
     function index(Request $r)
     {
-
-        Log::debug('Hi there!');
-
         return Inertia::render('Chat', [
             'canLogin' => false,
             'canRegister' => false,    
@@ -54,11 +57,26 @@ class ChatController extends Controller
                 $res = OpenAI::threads()->create([]);
                 $threadId = $res['id'];
                 Session::put('threadId', $threadId);
-        
-                file_put_contents(storage_path("threads/$threadId"), "Novo thread".PHP_EOL , FILE_APPEND | LOCK_EX);
-                Log::debug("NEW THREAD: $threadId");
+
+                Mail::to("rodrigo.nsh@gmail.com")->send(new NewThreadMail($mensagem));
 
             }
+
+            
+            $lead = Lead::where('thread_id', $threadId)->firstOrNew();
+            if ( $lead->id == null )
+            {
+                $lead->name = "Desconhecido";
+                $lead->email = "unknown";
+                $lead->thread_id = $threadId;
+                $lead->save();
+            }
+            
+            
+            $history = new LeadHistory;
+            $history->lead_id = $lead->id;
+            $history->text = $mensagem;
+            $history->save();
 
             $langs = 
             [
@@ -67,9 +85,6 @@ class ChatController extends Controller
                 "es" => ". Por favor responda en español",
             ];
 
-            
-            
-            file_put_contents(storage_path("threads/$threadId"), "USER: ".$mensagem.PHP_EOL , FILE_APPEND | LOCK_EX);
             $response = OpenAI::threads()->messages()->create($threadId, [
                 'role' => 'user',
                 'content' => $mensagem.$langs[$lang],
@@ -102,8 +117,12 @@ class ChatController extends Controller
                 if ( $run['required_action']['type'] != 'submit_tool_outputs' )
                 {
                     $msg = 'requires_action: '.$run['required_action']['type'].PHP_EOL;
-                    file_put_contents(storage_path("threads/$threadId"), "ERROR: $msg" , FILE_APPEND | LOCK_EX);
                     
+                    $history = new LeadHistory;
+                    $history->lead_id = $lead->id;
+                    $history->text = $msg;
+                    $history->save();
+                                        
                     return 'ERROR 1340';
                 }
                 
@@ -113,9 +132,14 @@ class ChatController extends Controller
                     $result =  ChatSubmitToolOptions::run($threadId, $run);
                     
                     $arr = $result->toArray();
-                    Log::debug("OLHA ISSO AQUI!!", $arr);
 
                     $mensagem = $arr['data'][0]['content'][0]['text']['value'];
+                    
+                    $history = new LeadHistory;
+                    $history->lead_id = $lead->id;
+                    $history->text = $mensagem;
+                    $history->save();
+
                     return $mensagem;
                 }
 
@@ -123,11 +147,15 @@ class ChatController extends Controller
 
             if ( $threadStatus == "failed" )
             {
+                $history = new LeadHistory;
+                $history->lead_id = $lead->id;
+                $history->text = "Failed, try again?";
+                $history->save();
                 return "Failed, try again?";
             }
 
             $result = OpenAI::threads()->messages()->list($threadId, [
-                'limit' => 5,
+                'limit' => 2,
             ]);
 
             $arr = $result->toArray();
@@ -135,8 +163,10 @@ class ChatController extends Controller
             $role = $arr['data'][0]['role'];
             $mensagem = $arr['data'][0]['content'][0]['text']['value'];
             
-            $msg = "$role: $mensagem".PHP_EOL;
-            file_put_contents(storage_path("threads/$threadId"), $msg , FILE_APPEND | LOCK_EX);
+            $history = new LeadHistory;
+            $history->lead_id = $lead->id;
+            $history->text = $mensagem;
+            $history->save();
 
             return $mensagem;
         }
