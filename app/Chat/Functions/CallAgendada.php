@@ -16,31 +16,27 @@ class CallAgendada extends ChatFunction
         Log::debug("Function: CallAgendada, $threadId");
         Log::debug(json_encode($call, JSON_PRETTY_PRINT));
 
-        $lang = Session::get('lang', 'en');
-
+        
         $arguments = (array) json_decode($call['function']['arguments']);
+        
+        foreach($arguments as $k=>$v)
+        {
+            $call = [];
+            $call['function'] = ['arguments'=>json_encode(['name'=>$k, 'value'=>$v])];
 
-        $fillData['name']            = $arguments['name'] ?? 'Unknown';
-        $fillData['body']            = $arguments['summary'] ?? 'Unknown';
-        $fillData['origin']          = $arguments['company'] ?? 'Unknown';
-        $fillData['address']         = $arguments['location'] ?? 'Unknown';
-        $fillData['city']            = $arguments['location'] ?? 'Unknown';
-        $fillData['orcamento']       = $arguments['budget'] ?? 'Unknown';
-        $fillData['body']            = $arguments['briefing'] ?? 'Unknown';
-        $fillData['proximo_contato'] = $arguments['next_meeting'] ?? 'Unknown';
-        $fillData['cta']             = "Harvey Wood";
-
+            UpdateLeadInfo::run($threadId, $call);
+        }
+        
         // mandar email
         
         $lead = Lead::where('thread_id', $threadId)->first();
-        $lead->fill($fillData);
-        $lead->save();
-
+        
         Mail::to("rodrigo.nsh@gmail.com")->send(new NewLeadMail($lead));
-
+        
         //$msg = 'negocio fechado! ' . json_encode($fillData) . PHP_EOL;
         //file_put_contents(storage_path("threads/$threadId"), "SUCCESS: $msg", FILE_APPEND | LOCK_EX);
-
+        
+        $lang = Session::get('lang', 'en');
         $over = [
             'pt' => "OK! Tudo em ordem! Vou mandar estes dados pro Rodrigo Nishino e ele entrará em contato com você",
             'en' => "OK! Everything in order! I will send this data to Rodrigo Nishino and he will contact you",
