@@ -33,6 +33,7 @@ class ChatController extends Controller
         
         // prevent xterm command abuse
         $mensagem = str_replace('\x1b', '\\x1b', $r->get('message'));
+        $mensagem = substr($mensagem, 0, 250);
 
         if ( Session::get('LIGMA', null) != null )
         {
@@ -155,7 +156,7 @@ class ChatController extends Controller
             }
 
             $result = OpenAI::threads()->messages()->list($threadId, [
-                'limit' => 2,
+                'limit' => 1,
             ]);
 
             $arr = $result->toArray();

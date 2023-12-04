@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
-class NegocioFechado extends ChatFunction
+class CallAgendada extends ChatFunction
 {
     static function run($threadId, $call)
     {
 
-        Log::debug("Function: NegocioFechado, $threadId");
+        Log::debug("Function: CallAgendada, $threadId");
         Log::debug(json_encode($call, JSON_PRETTY_PRINT));
 
         $lang = Session::get('lang', 'en');

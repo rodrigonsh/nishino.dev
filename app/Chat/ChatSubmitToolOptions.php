@@ -2,10 +2,13 @@
 
 namespace App\Chat;
 
-use App\Chat\Functions\NegocioFechado;
+use App\Chat\Functions\CallAgendada;
 use App\Chat\Functions\SendMoreData;
 use App\Chat\Functions\GenerateClientCode;
 use App\Chat\Functions\LanguageScore;
+use App\Chat\Functions\UpdateLeadInfo;
+use App\Models\Lead;
+use App\Models\LeadHistory;
 use Illuminate\Support\Facades\Log;
 use OpenAI\Laravel\Facades\OpenAI;
 
@@ -30,8 +33,8 @@ class ChatSubmitToolOptions
 
                 switch( $call['function']['name'] )
                 {
-                    case 'negocio_fechado':
-                        $callOUTPUT = NegocioFechado::run($threadId, $call);
+                    case 'call_agendada':
+                        $callOUTPUT = CallAgendada::run($threadId, $call);
                         break;
 
                     case 'language_score':
@@ -44,6 +47,10 @@ class ChatSubmitToolOptions
 
                     case 'generate_client_code':
                         $callOUTPUT = GenerateClientCode::run($threadId, $call);           
+                        break;
+                        
+                    case 'update_lead_info':
+                        $callOUTPUT = UpdateLeadInfo::run($threadId, $call);           
                         break;
 
                     default:
@@ -87,8 +94,45 @@ class ChatSubmitToolOptions
 
         //Log::debug('Teste!', $response->toArray());
 
+        if ( $threadStatus == "requires_action" )
+        {
+            $run = $run->toArray();
+
+            $lead = Lead::where('thread_id', $threadId)->first();
+
+            if ( $run['required_action']['type'] != 'submit_tool_outputs' )
+            {
+                $msg = 'requires_action: '.$run['required_action']['type'].PHP_EOL;
+                
+                $history = new LeadHistory;
+                $history->lead_id = $lead->id;
+                $history->text = $msg;
+                $history->save();
+                                    
+                return 'ERROR 1340';
+            }
+            
+            else
+            {
+                // executar as ferramentas, e pegar a nova resposta do servidor
+                $result =  ChatSubmitToolOptions::run($threadId, $run);
+                
+                $arr = $result->toArray();
+
+                $mensagem = $arr['data'][0]['content'][0]['text']['value'];
+                
+                $history = new LeadHistory;
+                $history->lead_id = $lead->id;
+                $history->text = $mensagem;
+                $history->save();
+
+                return $mensagem;
+            }
+
+        }
+
         $result = OpenAI::threads()->messages()->list($threadId, [
-            'limit' => 5,
+            'limit' => 1,
         ]);
         return $result;
 

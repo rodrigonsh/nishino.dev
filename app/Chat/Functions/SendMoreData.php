@@ -12,6 +12,9 @@ class SendMoreData extends ChatFunction
     static function run($threadId, $call)
     {
 
+        Log::debug("Function: SendMoreData, $threadId");
+        Log::debug(json_encode($call, JSON_PRETTY_PRINT));
+
         $lang = Session::get('lang', 'en');
         $fillData = (array) json_decode($call['function']['arguments']);
 
