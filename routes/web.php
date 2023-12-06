@@ -1,7 +1,6 @@
 <?php
 
-
-
+use App\Http\Controllers\Cliente\ClienteHome;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\ChatController;
@@ -112,13 +111,28 @@ Route::post('/contato', [ContatoController::class, 'enviar'])->name('enviar');
 Route::get('/harvey', [ChatController::class, 'index'])->name('chat');
 Route::post('/harvey', [ChatController::class, 'message'])->name('message');
 
-Route::get('/harvey/debug', [ChatController::class, 'debug'])->name('hdebug');
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    
+    Route::get('/cliente', [ClienteHome::class, 'index'])->name('cliente.home');
 
-/*
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/cliente/projetos', function () {
+        return Inertia::render('Cliente/Projetos');
+    })->name('cliente.projetos');
+
+    Route::get('/cliente/harvey', function () {
+        return Inertia::render('Cliente/Harvey');
+    })->name('cliente.harvey');
+
+    Route::get('/cliente/financeiro', function () {
+        return Inertia::render('Cliente/Financeiro');
+    })->name('cliente.harvey');
+
+    Route::get('/cliente/docs', function () {
+        return Inertia::render('Cliente/Documentos');
+    })->name('cliente.docs');
+
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -126,11 +140,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-*/
 
 require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';
 
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'voyager'], function () {
     Voyager::routes();
 });

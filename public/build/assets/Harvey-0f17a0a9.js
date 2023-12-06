@@ -1,0 +1,1 @@
+import{_ as a}from"./AuthenticatedLayout-696b746d.js";import{o as t,e as r,a as e,u as o,w as s,F as n,X as _,b as c}from"./app-d5d9e0f0.js";import"./store-5f8f006e.js";const l=c("h1",null,"Área do Cliente: Harvey",-1),h={__name:"Harvey",setup(i){return(m,u)=>(t(),r(n,null,[e(o(_),{title:"Harvey"}),e(a,{title:"Harvew"},{default:s(()=>[l]),_:1})],64))}};export{h as default};

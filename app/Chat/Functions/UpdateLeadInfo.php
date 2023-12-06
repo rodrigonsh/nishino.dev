@@ -29,16 +29,15 @@ class UpdateLeadInfo extends ChatFunction
         {
             $lead->$name = $value;
         }
-        else
-        {
-            if ( $lead->body == null ) $lead->body = "{}";
+        
+        if ( $lead->body == null ) $lead->body = "{}";
 
-            $jsonData = json_decode($lead->body);
-            $jsonData->$name = $value;
-            $lead->body = json_encode($jsonData);
+        $jsonData = json_decode($lead->body);
+        $jsonData->$name = $value;
+        $lead->body = json_encode($jsonData);
 
-            // TODO fazer aquele port do traverse
-        }
+        // TODO fazer aquele port do traverse
+    
         
         $lead->save();
 

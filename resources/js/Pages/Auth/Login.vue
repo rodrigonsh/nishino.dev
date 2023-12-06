@@ -38,7 +38,7 @@
 
         <Head title="Log in" />
 
-        
+        <v-container class="bg-dialog w-100 d-flex justify-end">
 
         <v-card 
             class="w-50" 
@@ -113,6 +113,8 @@
             </v-card-footer>
             
         </v-card>
+
+    </v-container>
 
     </GuestLayout>
 </template>

@@ -41,6 +41,17 @@ export default {
         window.location = "https://api.whatsapp.com/send?phone=5567981849417"
     }
 
+    const getClienteTrans = computed(function()
+    {
+        let trans = {
+            'pt': "Área do cliente",
+            'en': "Client Area",
+            'es': "Clientes",
+        }
+
+        return trans[store.lang]
+    })
+
     const getAboutTrans = computed(function()
     {
         let trans = {
@@ -84,44 +95,55 @@ export default {
 
             </Link>
 
-            <v-card class="w-100 mb-6">
+            
 
-                <v-list lines="one">
-                    
-                    <Link href="/about">
+            <v-list density="compact" nav>
 
-                        <v-list-item 
-                            prepend-icon="mdi-information"
-                            :title="getAboutTrans"
-                            :ripple="true"
-                            link
-                        ></v-list-item>
+                <Link href="/cliente">
 
-                    </Link>
+                <v-list-item 
+                    prepend-icon="mdi-account"
+                    :title="getClienteTrans"
+                    :ripple="true"
+                    link
+                ></v-list-item>
 
-                    <v-divider />
+                </Link>
 
-                    <Link href="/blog">
+                <v-divider />
+                
+                <Link href="/about">
+
                     <v-list-item 
-                        prepend-icon="mdi-post"
-                        title="Blog"
+                        prepend-icon="mdi-information"
+                        :title="getAboutTrans"
                         :ripple="true"
+                        link
                     ></v-list-item>
-                    </Link>
 
-                    <v-divider />
+                </Link>
 
-                    <Link href="/harvey">
-                    <v-list-item 
-                        prepend-icon="mdi-message"
-                        :title="getContactTrans"
-                        :ripple="true"
-                    ></v-list-item>
-                    </Link>
+                <v-divider />
 
-                </v-list>
+                <Link href="/blog">
+                <v-list-item 
+                    prepend-icon="mdi-post"
+                    title="Blog"
+                    :ripple="true"
+                ></v-list-item>
+                </Link>
 
-            </v-card>
+                <v-divider />
+
+                <Link href="/harvey">
+                <v-list-item 
+                    prepend-icon="mdi-message"
+                    :title="getContactTrans"
+                    :ripple="true"
+                ></v-list-item>
+                </Link>
+
+            </v-list>            
 
             <v-divider class="mb-5"></v-divider>
 

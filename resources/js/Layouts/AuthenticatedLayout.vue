@@ -3,16 +3,8 @@
 export default {
 
     data: () => ({
-      drawer: true,
+      drawer: (window.innerWidth > 600),
     }),
-
-    methods:
-    {
-        teste: function()
-        {
-            console.log("humm")
-        }
-    }
 
 }
 
@@ -22,31 +14,176 @@ export default {
 
     import { Link } from '@inertiajs/vue3';
 
+    import { useAppStore } from './../store.js'
+
+    import { computed } from 'vue'
+
+    const store = useAppStore()
+
+    const getLang = computed( function()
+    {
+        return store.lang
+    })
+
+    const changeLang = function()
+    {
+        store.toggleLang()
+    }
+
     defineProps({
+        canLogin: Boolean,
+        canRegister: Boolean,
         title: String,
     });
+
+    const getTrans = function(msg)
+    {
+
+        if ( undefined == store ) return;
+
+        let trans = {
+            'projetos':
+            {
+                'pt': "Projetos",
+                'en': "Projects",
+                'es': "Proyectos",
+            },
+            'atendimento':
+            {
+                'pt': "Harvey Wood",
+                'en': "Harvey Wood",
+                'es': "Harvey Wood",
+            },
+            'financeiro':
+            {
+                'pt': "Financeiro",
+                'en': "Billing",
+                'es': "Facturas",
+            },
+            'documentos':
+            {
+                'pt': "Documentos",
+                'en': "Documents",
+                'es': "Documientos",
+            },
+        }
+
+
+        return trans[msg][store.lang]
+    }
+
+    const getAboutTrans = computed(function()
+    {
+        let trans = {
+            'pt': "Saiba Mais",
+            'en': "About me",
+            'es': "Acerca",
+        }
+
+        return trans[store.lang]
+    })
+
+    const getContactTrans = computed(function()
+    {
+        let trans = {
+            'pt': "Contato",
+            'en': "Call me",
+            'es': "Cuenta conmigo",
+        }
+
+        return trans[store.lang]
+    })
+
+    
 
 </script>
 
 
 <template>
 
-    <v-app>
+    <v-app :lang="store.lang">
 
-    <v-navigation-drawer color="blue-grey-lighten-1" v-model="drawer">
-        <v-container class="pa-5 d-flex flex-column justify-center align-center">
-            <Link href="/" class="d-block w-75 my-6">
-                DASDSA
+    <v-navigation-drawer color="surf" v-model="drawer">
+        <v-container class="pa-5 d-flex flex-column ">
+
+            <Link id="menuLogo" href="/" class="d-block w-75 mt-6 mx-auto">
+                <img src="/img/logo-nsh.svg" class="app-logo d-block w-100 mb-3" />
             </Link>
-            testeeee
+            
+            <Link class="mt-1 mb-5" href="/cliente">
+                <span lang="pt" class="text-center">Área do Cliente</span>
+                <span lang="en" class="text-center">Customer Area</span>
+                <span lang="es" class="text-center">Area de Cliente</span>
+            </Link>
+            
+                <v-list density="compact" nav>
+
+                    <Link href="/cliente/projetos">
+
+                    <v-list-item 
+                        prepend-icon="mdi-folder-cog"
+                        :title="getTrans('projetos')"
+                        :ripple="true"
+                        link
+                    ></v-list-item>
+
+                    </Link>
+
+                    <v-divider />
+                    
+                    <Link href="/cliente/harvey">
+
+                        <v-list-item 
+                            prepend-icon="mdi-message"
+                            :title="getTrans('atendimento')"
+                            :ripple="true"
+                            link
+                        ></v-list-item>
+
+                    </Link>
+
+                    <v-divider />
+
+                    <Link href="/cliente/financeiro">
+                    <v-list-item 
+                        prepend-icon="mdi-cash"
+                        :title="getTrans('financeiro')"
+                        :ripple="true"
+                    ></v-list-item>
+                    </Link>
+
+                    <v-divider />
+
+                    <Link href="/cliente/docs">
+                    <v-list-item 
+                        prepend-icon="mdi-text-box"
+                        :title="getTrans('documentos')"
+                        :ripple="true"
+                    ></v-list-item>
+                    </Link>
+
+                    <v-divider />
+
+                    <v-list-item 
+                        prepend-icon="mdi-translate"
+                        :title="getLang"
+                        :ripple="true"
+                        @click="changeLang"
+                    ></v-list-item>
+
+                </v-list>
+
         </v-container>
     </v-navigation-drawer>
 
-    <v-app-bar>
+    <v-app-bar class="bg-nishino">
 
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-        {{ title }}
+        <v-app-bar-title>
+            {{ title }}
+        </v-app-bar-title>
+       
 
         <v-spacer></v-spacer>
 
@@ -80,18 +217,17 @@ export default {
         </v-menu>
 
     </v-btn>
-
-        
-                                    
+                                  
 
     </v-app-bar>
 
 
-    <v-main>
+    <v-main class="bg-forest">
+        <slot />
 
-        <v-container>
-            <slot />
-
+        <v-container class="bg-footer">
+            <strong>NISHINO LTDA</strong><br />
+            48.129.023/0001-27
         </v-container>
 
     </v-main>
@@ -100,3 +236,4 @@ export default {
 
 
 </template>
+

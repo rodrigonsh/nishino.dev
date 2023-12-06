@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     use HasFactory;
+
+    protected $appends = ['briefing'];
+
+    public function getBriefingAttribute()
+    {
+        $req = json_decode($this->requisitos);
+        
+        if ( ! property_exists($req, 'briefing') )
+        {
+            return "Sem briefing definido";
+        }
+
+        return $req->briefing;
+    }
+
 }

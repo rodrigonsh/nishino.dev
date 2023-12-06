@@ -83,6 +83,10 @@ a{
     
 }
 
+.v-container.w-100 {
+    max-width: unset !important;
+}
+
 @media (min-width: 960px)
 {
     
@@ -213,6 +217,7 @@ a{
     background-size: cover; 
     background-position: top right; /* or adjust as needed */
     padding: 128px 32px;
+    max-width: 100%;
 }
 
 #cta h1
@@ -291,6 +296,15 @@ a{
     text-align: center;
     padding: 32px !important;
     font-size: 12px;
+}
+
+.bg-dialog
+{
+    background-color: #e6e6e6;
+    background-image: url(/img/bg-white.jpg);
+    background-size: cover;
+    text-shadow: 1px 2px 0px white;
+    text-align: right;
 }
 
 #blog img
@@ -397,3 +411,69 @@ ul
 }
 
 #send .v-input__details{ display: none; }
+
+
+/* Estilizando a barra de rolagem */
+::-webkit-scrollbar {
+    width: 5px; /* Largura da barra de rolagem */
+  }
+  
+  /* Estilizando o "track" (a trilha da barra de rolagem) */
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Cor de fundo da trilha */
+  }
+  
+  /* Estilizando o "thumb" (o indicador da posição atual na barra de rolagem) */
+  ::-webkit-scrollbar-thumb {
+    background-color: #88888857; /* Cor do indicador */
+    border-radius: 5px; /* Borda arredondada */
+  }
+  
+  /* Mudando a aparência da barra de rolagem quando o usuário passa o mouse sobre ela */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+  
+
+
+pre[code]
+{
+    border: 1px solid rgb(167, 167, 167);
+    background-color: #e6e6e6;
+    border-radius: 5px;
+    margin: 32px 0px;
+    padding: 32px;
+    white-space:break-spaces;
+    text-shadow: -2px -2px 0px white;
+}
+
+details
+{
+    padding: 32px;
+    border: 1px solid rgb(167, 167, 167);
+    background-color: #e6e6e6;
+    border-radius: 5px;
+}
+
+details summary
+{
+    padding: 32px;
+    margin: -32px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+details summary:hover
+{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+details[open] summary
+{
+    margin: -32px -32px 0px;
+}
+
+ a.text-black:visited
+ {
+    color: red !important;
+ }

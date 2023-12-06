@@ -7,6 +7,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
 import { createPinia } from 'pinia';
+import api from '@/api';
 
 // Vuetify
 import 'vuetify/styles'
@@ -16,6 +17,7 @@ import * as directives from 'vuetify/directives'
 
 import '@mdi/font/css/materialdesignicons.css'
 
+api.getToken()
 
 const vuetify = createVuetify({
   components,
