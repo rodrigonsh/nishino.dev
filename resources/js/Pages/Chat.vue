@@ -36,12 +36,12 @@ const enviar = () => {
 
     store.setChatStatus(true)
 
-    store.setUserMessage(message.value)
+    store.setUserMessage("harvey-front", message.value)
     setTimeout(function () {
         messages.value.scrollTop = messages.value.scrollHeight
     })
 
-    let fd = new FormData(document.querySelector('#send'))
+    let fd = new FormData(document.querySelector('.chat-send'))
     fd.append('message', message.value)
     fd.append('lang', store.lang)
 
@@ -49,7 +49,7 @@ const enviar = () => {
     let xhr = new XMLHttpRequest()
     xhr.onload = function () {
 
-        store.setAssistantMessage(xhr.responseText)
+        store.setAssistantMessage("harvey-front", xhr.responseText)
         store.setChatStatus(false)
         
         setTimeout(function () {
@@ -57,7 +57,7 @@ const enviar = () => {
         })
     }
 
-    xhr.open('POST', route('message'));
+    xhr.open('POST', route('message-front'));
     xhr.send(fd)
 
     message.value = ""
@@ -71,7 +71,7 @@ const enviar = () => {
 
         <Head title="Fale conosco" />
 
-        <v-container id="chat">
+        <v-container class="chat">
 
             <div :class='{ chatMessages:true, loading: store.chatLoading}' ref="messages">
 
@@ -111,7 +111,7 @@ const enviar = () => {
 
             </div>
 
-            <form @submit.prevent="enviar()" id="send">
+            <form @submit.prevent="enviar()" class="chat-send">
 
                 <input type="hidden" name="_token" :value="laravelToken">
 

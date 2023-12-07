@@ -11,14 +11,16 @@
         <h1 class="mb-6" lang="en">Talk to our AI and schedule a presentation</h1>
         <h1 class="mb-6" lang="es">Habla con nuestra IA y programa una presentación</h1>
 
-        
+
+        <Link href="/harvey" >
         <v-btn lang="pt" prepend-icon="mdi-message" size="x-large">Fale com Harvey</v-btn>
         <v-btn lang="en" prepend-icon="mdi-message" size="x-large">Talk to Harvey</v-btn>
         <v-btn lang="es" prepend-icon="mdi-message" size="x-large">Hable con harvey</v-btn>
-
+        </Link>
         
     </div>
-    <Link href="/harvey" >
+    
+    <div class="d-flex flex-column align-center">
 
         <img src="/img/logo-nsh-white.svg" id="cta-logo" />
 
@@ -35,7 +37,7 @@
         </p>
 
         
-    </Link>
+    </div>
 
 </v-container>  
 </template>

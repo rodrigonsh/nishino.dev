@@ -23,7 +23,9 @@ export const useAppStore = defineStore({
     langs: appLangs,
 
     chatLoading: false,
-    chatMessages: []
+    chatMessages: [],
+    clientMessages: [],
+    donnaMessages: []
 
   }),
 
@@ -45,11 +47,35 @@ export const useAppStore = defineStore({
     },
 
 
-    setUserMessage(msg) { this.chatMessages.push({key: new Date().valueOf() , 'user': 'Você', 'message': msg }) },
+    setUserMessage(onde, msg)
+    {
+
+      let mensagem = {key: new Date().valueOf() , 'user': 'Você', 'message': msg }
+
+      if(onde == 'harvey-front') this.chatMessages.push(mensagem) 
+      if(onde == 'harvey-client') this.clientMessages.push(mensagem) 
+      if(onde == 'donna') this.donnaMessages.push(mensagem) 
+    },
     
-    setAssistantMessage(msg) { this.chatMessages.push({key: new Date().valueOf() ,'user': 'Harvey Wood', 'message': msg }) },
+    setAssistantMessage(onde, msg)
+    {
+
+      let mensagem = {key: new Date().valueOf() ,'user': 'Harvey Wood', 'message': msg }
+
+      if ( onde == 'harvey-front') this.chatMessages.push(mensagem) 
+      if ( onde == 'harvey-client') this.clientMessages.push(mensagem) 
+      if ( onde == 'donna')
+      {
+        mensagem.user = "Donna"
+        this.donnaMessages.push(mensagem) 
+      }
+      
+    },
     
     setChatStatus( status ){ console.log('setando status', status); this.chatLoading = status }
+
+
+
 
   },
 });

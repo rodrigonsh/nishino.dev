@@ -15,7 +15,7 @@ class Project extends Model
     {
         $req = json_decode($this->requisitos);
         
-        if ( ! property_exists($req, 'briefing') )
+        if ( $req == null || ! property_exists($req, 'briefing') )
         {
             return "Sem briefing definido";
         }

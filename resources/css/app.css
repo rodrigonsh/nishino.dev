@@ -233,7 +233,7 @@ a{
 {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     justify-content: center;
 
 }
@@ -363,7 +363,7 @@ ul
     background-position: top right;
 }
 
-#chat
+.chat
 {
     height: calc( 100vh - 65px );
     display: flex;
@@ -399,7 +399,7 @@ ul
     color:var(--primary)
 }
 
-#send
+.chat-send
 {
     display: flex;
     flex-direction: row;
@@ -410,7 +410,7 @@ ul
     padding: 16px;
 }
 
-#send .v-input__details{ display: none; }
+.chat-send .v-input__details{ display: none; }
 
 
 /* Estilizando a barra de rolagem */
@@ -473,7 +473,9 @@ details[open] summary
     margin: -32px -32px 0px;
 }
 
- a.text-black:visited
+a.text-priority{ color: black !important; }
+
+ a.text-priority:visited
  {
     color: red !important;
  }

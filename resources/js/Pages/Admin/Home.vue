@@ -8,11 +8,9 @@ import { Head } from '@inertiajs/vue3';
 
     <AdminLayout title="Área do ADMIN">
         
-        <div  style="background-color: rgb(216, 215, 215);">
-            <v-container>
-                <h1>Área do ADMIN</h1>
-            </v-container>
-        </div>
+        <v-container class='w-100 pa-7 bg-dialog'>
+            <h1>Visão geral Admin</h1>
+        </v-container>
 
         <v-container>
 

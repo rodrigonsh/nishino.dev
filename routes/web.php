@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Cliente\ClienteHome;
+use App\Http\Controllers\Cliente\ClienteChat;
+
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\ChatController;
@@ -109,7 +111,9 @@ Route::get('/contato', function () {
 Route::post('/contato', [ContatoController::class, 'enviar'])->name('enviar');
 
 Route::get('/harvey', [ChatController::class, 'index'])->name('chat');
-Route::post('/harvey', [ChatController::class, 'message'])->name('message');
+Route::post('/harvey', [ChatController::class, 'message'])->name('message-front');
+
+
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -120,9 +124,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Cliente/Projetos');
     })->name('cliente.projetos');
 
-    Route::get('/cliente/harvey', function () {
-        return Inertia::render('Cliente/Harvey');
-    })->name('cliente.harvey');
+    Route::get('/cliente/harvey', [ClienteChat::class, 'index'])->name('cliente.harvey');
+    Route::post('/cliente/harvey', [ClienteChat::class, 'message'])->name('message-front');
 
     Route::get('/cliente/financeiro', function () {
         return Inertia::render('Cliente/Financeiro');

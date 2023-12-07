@@ -152,7 +152,7 @@ export default {
 
                     <v-divider />
 
-                    <Link href="/admin/chat">
+                    <Link href="/admin/donna">
                     <v-list-item 
                         prepend-icon="mdi-message"
                         title="Donna"

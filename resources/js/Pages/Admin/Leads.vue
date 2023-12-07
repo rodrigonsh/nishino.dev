@@ -27,7 +27,7 @@ const props = defineProps({
 
             <div class="y-3" v-for="lead in props.leads">
 
-                <Link class="text-black" :href="'/admin/leads/'+lead.id">
+                <Link class="text-priority" :href="'/admin/leads/'+lead.id">
 
                 <small>Data:{{ lead.date_diff }}</small>
                 <h3>{{ lead.name  }}</h3>

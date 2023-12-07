@@ -75,7 +75,7 @@ const descartarLead = function()
         </v-row>
 
 
-        <pre code>{{ JSON.parse(lead.body) }}</pre>
+        <pre code>{{ lead.body }}</pre>
 
         <details class="mb-6">
             <summary>Histórico de Chat</summary>
