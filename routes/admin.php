@@ -21,8 +21,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/admin/clientes', [AdminClientes::class, 'index'])->name('admin.clientes');
     Route::get('/admin/clientes/{id}', [AdminClientes::class, 'view'])->name('admin.clientes.view');
+    Route::get('/admin/clientes/{id}/projeto/{pid}', [AdminClientes::class, 'projeto'])->name('admin.clientes.projeto');
 
     Route::get('/admin/donna', [AdminDonna::class, 'index'])->name('admin.donna');
+    Route::post('/admin/donna', [AdminDonna::class, 'message'])->name('donna-message');
+    Route::get('/admin/donna/getProjetos', [AdminDonna::class, 'getProjetos'])->name('admin.getProjetos');
+    Route:: get('/admin/donna/setSubject/{id}', [AdminDonna::class, 'setSubject'])->name('admin.setSubject');
 
     Route::get('/admin/financeiro', [AdminFinanceiro::class, 'index'])->name('admin.financeiro');
     

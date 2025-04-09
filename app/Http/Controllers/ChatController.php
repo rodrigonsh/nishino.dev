@@ -19,14 +19,19 @@ class ChatController extends GenericChatController
 {
 
     public $indexView = 'Chat';
-    public $assistantId = 'asst_9ye4LphpEr4Wl0d9rhYSA2Fn';
+    public $assistantId = null;
     public $threadSessionName = 'threadId';
 
     public $threadTracker = null;
 
+    public function setAssistant()
+    {
+        $this->assistantId = env("CHAT_HARVEY");
+    }
+
     public function setThreadTracker($threadId)
     {
-        $lead = Lead::where('thread_id', $threadId)->firstOrNew();
+        $this->threadTracker = Lead::where('thread_id', $threadId)->firstOrNew();
         if ( $this->threadTracker->id == null )
         {
             $this->threadTracker->name = "Desconhecido";

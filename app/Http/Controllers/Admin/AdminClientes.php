@@ -35,12 +35,33 @@ class AdminClientes extends Controller
 
         $cliente = User::find($id);
 
+        $projetos = Project::where('user_id', $cliente->id)->get();
+
         return Inertia::render('Admin/Cliente', [
             'canLogin' => false,
             'canRegister' => false,    
             'laravelToken' => csrf_token(),
-            'cliente' => $cliente
+            'cliente' => $cliente,
+            'projetos' => $projetos,
         ]);
+    }
+
+    function projeto($id, $pid)
+    {
+
+        $this->authorize('browse_admin');
+
+        $projeto = Project::with('messages')->find($pid);
+        $cliente = User::find($projeto->user_id);
+
+        return Inertia::render('Admin/ClienteProjeto', [
+            'canLogin' => false,
+            'canRegister' => false,    
+            'laravelToken' => csrf_token(),
+            'cliente' => $cliente,
+            'projeto' => $projeto,
+        ]);
+
     }
 
 }

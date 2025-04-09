@@ -172,7 +172,27 @@
 
         <v-container id="projetos">
 
-            
+            <Link href="/todoke">
+            <v-card class='projeto todoke-highlight'>
+                <v-row>
+                    <v-col md="4" cols="12">
+                        <div class="proj-img" style="background-image: url(/img/slide-diario.jpg)"></div>
+                    </v-col>
+                    <v-col md="8" cols="12">
+                        <div class="descr">
+                            <h1>TODOKE</h1>
+                            <p lang="pt">Plataforma inovadora de gerenciamento de entregas para motoboys e drones</p>
+                            <p lang="en">Innovative delivery management platform for motoboys and drones</p>
+                            <p lang="es">Plataforma innovadora de gestión de entregas para motoboys y drones</p>
+                            <v-chip class="ma-1">Open Source</v-chip>
+                            <v-chip class="ma-1">Laravel</v-chip>
+                            <v-chip class="ma-1">Ionic</v-chip>
+                        </div>
+                    </v-col>
+                </v-row>
+            </v-card>
+            </Link>
+
             <Link v-for="proj in projetos" :href="route('projeto', {slug: proj.slug})">
             <v-card class='projeto'>
 
@@ -224,3 +244,20 @@
 </GuestLayout>
 
 </template>
+
+<style scoped>
+.projeto.todoke-highlight {
+    border: 2px solid #4CAF50;
+    margin-bottom: 2rem;
+}
+
+.projeto.todoke-highlight:hover {
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+
+.projeto.todoke-highlight h1 {
+    color: #4CAF50;
+}
+</style>

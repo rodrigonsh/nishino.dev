@@ -11,7 +11,9 @@ const props = defineProps({
 const converter = function()
 {
     console.log('converter',  props.lead.id)
-    api.converterLead(props.lead)
+    api
+        .converterLead(props.lead)
+        .then( () => { window.location = "/admin/leads" } )
 }
 
 const descartarLead = function()

@@ -50,9 +50,9 @@ export default {
             },
             'atendimento':
             {
-                'pt': "Harvey Wood",
-                'en': "Harvey Wood",
-                'es': "Harvey Wood",
+                'pt': "Aria (atendimento)",
+                'en': "Aria (atendimento)",
+                'es': "Aria (atendimento)",
             },
             'financeiro':
             {
@@ -131,7 +131,7 @@ export default {
 
                     <v-divider />
                     
-                    <Link href="/cliente/harvey">
+                    <Link href="/cliente/atendimento">
 
                         <v-list-item 
                             prepend-icon="mdi-message"
@@ -190,7 +190,6 @@ export default {
         <v-btn
             prepend-icon="mdi-account"
             append-icon="mdi-menu-down"
-            @click="teste"
         >
 
         {{ $page.props.auth.user.name }}

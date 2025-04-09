@@ -6,6 +6,8 @@ import InputRules from "@/Shared/rules"
 import Swal from 'sweetalert2'
 import { computed, ref } from 'vue'
 
+import api from '@/api'
+
 import { useAppStore } from '@/store.js'
 const store = useAppStore()
 
@@ -31,12 +33,27 @@ const getLabel = function (field) {
 
 const messages = ref()
 const message = ref('')
+const projetos = ref([])
+const projeto = ref()
+const snackbarShow = ref(false);
+const snackbarMsg = ref("snackbar!");
+
+let xhr = new XMLHttpRequest()
+xhr.onload = function () 
+{
+
+    projetos.value = JSON.parse(xhr.responseText)
+    projeto.value = projetos.value[0].value
+
+}
+xhr.open('get', route('cliente.getProjetos'))
+xhr.send()
 
 const enviar = () => {
 
     store.setChatStatus(true)
 
-    store.setUserMessage("harvey-client", message.value)
+    store.setUserMessage("atendimento-message", message.value)
     setTimeout(function () {
         messages.value.scrollTop = messages.value.scrollHeight
     })
@@ -49,7 +66,7 @@ const enviar = () => {
     let xhr = new XMLHttpRequest()
     xhr.onload = function () {
 
-        store.setAssistantMessage("harvey-client", xhr.responseText)
+        store.setAssistantMessage("atendimento-message", xhr.responseText)
         store.setChatStatus(false)
         
         setTimeout(function () {
@@ -57,22 +74,40 @@ const enviar = () => {
         })
     }
 
-    xhr.open('POST', route('message-client'));
+    xhr.open('POST', route('atendimento-message'));
     xhr.send(fd)
 
     message.value = ""
 
 }
 
+const setSubject = function(id)
+{       
+    api
+    .setClientChatSubject(id)
+    .then( response => { 
+            
+        store.setAssistantMessage("atendimento-message", response.data)
+        store.setChatStatus(false)
+
+    })
+}
+
 </script>
 
 <template>
-    <Head title="Harvey" />
+    <Head title="Atendimento" />
 
-    <AuthenticatedLayout title="Harvey">
+    <AuthenticatedLayout title="Atendimento">
         
-        <v-container class='w-100 pa-7 bg-dialog'>
-            <h1>Harvey</h1>
+        <v-container class='w-100 pa-7 bg-dialog' id="atendimentoChatProjectSelect">
+            <v-select
+                prepend-inner-icon="mdi-folder-cog"
+                label="Selecione o Projeto"
+                :items="projetos"
+                v-model="projeto"
+                @update:modelValue="setSubject"
+            ></v-select>
         </v-container>
 
         <v-container class="chat">
@@ -81,12 +116,12 @@ const enviar = () => {
 
                 <div class='chatMessage' v-for="m in store.clientMessages" :key="m.key">
 
-                    <v-avatar v-if="m.user == 'Harvey Wood'" class='mr-2 mt-3' image="/img/harvey-profile.png"></v-avatar>
+                    <v-avatar v-if="m.user == 'Atendimento'" class='mr-2 mt-3' image="/img/atendimento-profile.jpg"></v-avatar>
                     <v-avatar v-else class='mr-2 mt-3' image="/img/user-profile.jpg"></v-avatar>
 
-                    <p class="harvey" v-if="m.user == 'Harvey Wood'">
+                    <p class="harvey" v-if="m.user == 'Atendimento'">
 
-                        <strong>Harvey Wood: <br /></strong>
+                        <strong>Atendimento: <br /></strong>
                         {{ m.message }}
 
                     </p>
@@ -112,6 +147,8 @@ const enviar = () => {
             </form>
 
             </v-container>
+
+            <v-snackbar v-model="snackbarShow" timeout="2000">{{ snackbarMsg }}</v-snackbar>
 
     </AuthenticatedLayout>
 </template>

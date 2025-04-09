@@ -61,7 +61,7 @@ class AdminLeads extends Controller
             $user->name = $lead->name;
             $user->email = $lead->email;
             $user->password = Hash::make(uniqid());
-            $user->map = $lead->body;
+            $user->map = "{}";
             $user->save();
         }
         

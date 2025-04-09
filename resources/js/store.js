@@ -52,8 +52,8 @@ export const useAppStore = defineStore({
 
       let mensagem = {key: new Date().valueOf() , 'user': 'Você', 'message': msg }
 
-      if(onde == 'harvey-front') this.chatMessages.push(mensagem) 
-      if(onde == 'harvey-client') this.clientMessages.push(mensagem) 
+      if(onde == 'harvey-message') this.chatMessages.push(mensagem) 
+      if(onde == 'atendimento-message') this.clientMessages.push(mensagem) 
       if(onde == 'donna') this.donnaMessages.push(mensagem) 
     },
     
@@ -62,8 +62,14 @@ export const useAppStore = defineStore({
 
       let mensagem = {key: new Date().valueOf() ,'user': 'Harvey Wood', 'message': msg }
 
-      if ( onde == 'harvey-front') this.chatMessages.push(mensagem) 
-      if ( onde == 'harvey-client') this.clientMessages.push(mensagem) 
+      if ( onde == 'harvey-message') this.chatMessages.push(mensagem) 
+      
+      if ( onde == 'atendimento-message')
+      {
+        mensagem.user = "Atendimento"
+        this.clientMessages.push(mensagem) 
+      }
+
       if ( onde == 'donna')
       {
         mensagem.user = "Donna"

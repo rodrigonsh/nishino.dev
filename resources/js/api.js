@@ -36,6 +36,15 @@ const api =
         })
     },
 
+    setClientChatSubject(id)
+    {
+        let partes = ['', 'cliente', 'atendimento', 'setSubject', id]
+
+        return axios.get( partes.join('/') , {
+            withCredentials: true
+        })
+    },
+
 }
 
 

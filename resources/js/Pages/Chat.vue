@@ -36,7 +36,7 @@ const enviar = () => {
 
     store.setChatStatus(true)
 
-    store.setUserMessage("harvey-front", message.value)
+    store.setUserMessage("harvey-message", message.value)
     setTimeout(function () {
         messages.value.scrollTop = messages.value.scrollHeight
     })
@@ -49,7 +49,7 @@ const enviar = () => {
     let xhr = new XMLHttpRequest()
     xhr.onload = function () {
 
-        store.setAssistantMessage("harvey-front", xhr.responseText)
+        store.setAssistantMessage("harvey-message", xhr.responseText)
         store.setChatStatus(false)
         
         setTimeout(function () {
@@ -57,7 +57,7 @@ const enviar = () => {
         })
     }
 
-    xhr.open('POST', route('message-front'));
+    xhr.open('POST', route('harvey-message'));
     xhr.send(fd)
 
     message.value = ""

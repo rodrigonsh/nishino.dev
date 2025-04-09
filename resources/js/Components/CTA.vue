@@ -5,19 +5,21 @@
 <template>
 <v-container id="cta">
 
-    <div >
+    <div class="d-flex flex-column align-center">
         
-        <h1 class="mb-6" lang="pt">Converse com nossa AI e agende uma apresentação</h1>
-        <h1 class="mb-6" lang="en">Talk to our AI and schedule a presentation</h1>
-        <h1 class="mb-6" lang="es">Habla con nuestra IA y programa una presentación</h1>
+        <h1 class="mb-6" lang="pt">Nosso projeto</h1>
+        <h1 class="mb-6" lang="en">Our project</h1>
+        <h1 class="mb-6" lang="es">Nuestro proyecto</h1>
+
+        <div class="d-flex gap-4">
 
 
-        <Link href="/harvey" >
-        <v-btn lang="pt" prepend-icon="mdi-message" size="x-large">Fale com Harvey</v-btn>
-        <v-btn lang="en" prepend-icon="mdi-message" size="x-large">Talk to Harvey</v-btn>
-        <v-btn lang="es" prepend-icon="mdi-message" size="x-large">Hable con harvey</v-btn>
-        </Link>
-        
+            <Link href="/todoke">
+                <v-btn lang="pt" prepend-icon="mdi-github" size="x-large">Projeto TODOKE</v-btn>
+                <v-btn lang="en" prepend-icon="mdi-github" size="x-large">TODOKE Project</v-btn>
+                <v-btn lang="es" prepend-icon="mdi-github" size="x-large">Proyecto TODOKE</v-btn>
+            </Link>
+        </div>
     </div>
     
     <div class="d-flex flex-column align-center">
@@ -25,15 +27,15 @@
         <img src="/img/logo-nsh-white.svg" id="cta-logo" />
 
         <p class="text-center" lang="pt">
-            Vamos construir o projeto dos seus sonhos!
+            Sistema de Delivery open source.
         </p>
 
         <p class="text-center" lang="en">
-            Lets build the project of your dreams!
+            Open source delivery system.
         </p>
 
         <p class="text-center" lang="es">
-            ¡Construyamos el proyecto de tus sueños!
+            Sistema de entrega de código aberto.
         </p>
 
         

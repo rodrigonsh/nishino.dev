@@ -213,7 +213,7 @@ a{
     display: flex;
     flex-direction: row;
     gap: 128px;
-    background: linear-gradient(to left, rgba(0, 0, 0, 0),var(--primary)), url('/img/harvey-cta.jpg');
+    background: linear-gradient(to left, rgba(0, 0, 0, 0),var(--primary)), url('/img/todoke-cta.png');
     background-size: cover; 
     background-position: top right; /* or adjust as needed */
     padding: 128px 32px;
@@ -479,3 +479,5 @@ a.text-priority{ color: black !important; }
  {
     color: red !important;
  }
+
+ #atendimentoChatProjectSelect .v-input__details{ display: none; }

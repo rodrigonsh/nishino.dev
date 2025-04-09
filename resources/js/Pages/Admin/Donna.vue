@@ -31,6 +31,22 @@ const getLabel = function (field) {
 
 const messages = ref()
 const message = ref('')
+const projetos = ref([])
+const projeto = ref()
+const snackbarShow = ref(false);
+const snackbarMsg = ref("snackbar!");
+
+let xhr = new XMLHttpRequest()
+xhr.onload = function () 
+{
+
+    projetos.value = JSON.parse(xhr.responseText)
+    projeto.value = projetos.value[0].value
+
+}
+xhr.open('get', "/admin/donna/getProjetos")
+xhr.send()
+
 
 const enviar = () => {
 
@@ -57,11 +73,23 @@ const enviar = () => {
         })
     }
 
-    xhr.open('POST', route('message-donna'));
+    xhr.open('POST', route('donna-message'));
     xhr.send(fd)
 
     message.value = ""
 
+}
+
+const setSubject = function(id)
+{       
+    api
+    .setClientChatSubject(id)
+    .then( response => { 
+            
+        store.setAssistantMessage("atendimento-message", response.data)
+        store.setChatStatus(false)
+
+    })
 }
 
 </script>
@@ -71,8 +99,14 @@ const enviar = () => {
 
     <AdminLayout title="Donna">
         
-        <v-container class='w-100 pa-7 bg-dialog'>
-            <h1>Donna</h1>
+        <v-container class='w-100 pa-7 bg-dialog' id="atendimentoChatProjectSelect">
+            <v-select
+                prepend-inner-icon="mdi-folder-cog"
+                label="Selecione o Projeto"
+                :items="projetos"
+                v-model="projeto"
+                @update:modelValue="setSubject"
+            ></v-select>
         </v-container>
 
         <v-container class="chat">
@@ -83,7 +117,7 @@ const enviar = () => {
 
                 <div class='chatMessage' v-for="m in store.donnaMessages" :key="m.key">
 
-                    <v-avatar v-if="m.user == 'Donna'" class='mr-2 mt-3' image="/img/harvey-profile.png"></v-avatar>
+                    <v-avatar v-if="m.user == 'Donna'" class='mr-2 mt-3' image="/img/donna-profile.jpg"></v-avatar>
                     <v-avatar v-else class='mr-2 mt-3' image="/img/user-profile.jpg"></v-avatar>
 
                     <p class="harvey" v-if="m.user == 'Donna'">

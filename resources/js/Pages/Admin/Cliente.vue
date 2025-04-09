@@ -5,6 +5,7 @@ import api from '@/api'
 
 const props = defineProps({
     cliente: Object,
+    projetos: Array,
     errors: Array,
 });
 
@@ -38,7 +39,7 @@ const props = defineProps({
                         <v-list>
 
                             <v-list-item  prepend-icon="mdi-thumb-up">
-                                Conversar com Donna
+                                Conversar com Donna sobre o
                             </v-list-item>
                         
                         </v-list>
@@ -53,6 +54,18 @@ const props = defineProps({
 
         <pre code>{{ cliente.map }}</pre>
 
+        oie
+        <div class="y-3" v-for="proj in props.projetos">
+
+            <Link class="text-black" :href="'/admin/clientes/'+cliente.id+'/projeto/'+proj.id">
+
+                <small>HAKUNA MATATA</small>
+                <h3>{{ proj.nome  }}</h3>
+                <p>{{ proj.briefing }}</p>
+
+            </Link>
+
+        </div>
 
         </v-container>
 

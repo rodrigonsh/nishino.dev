@@ -23,4 +23,11 @@ class Project extends Model
         return $req->briefing;
     }
 
+    public function messages()
+    {
+        return $this->hasMany(ProjectHistory::class, 'project_id');
+    }
+
+    public function user(){ return $this->belongsTo(User::class); }
+
 }

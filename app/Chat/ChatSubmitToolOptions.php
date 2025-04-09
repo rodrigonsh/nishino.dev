@@ -7,6 +7,8 @@ use App\Chat\Functions\SendMoreData;
 use App\Chat\Functions\GenerateClientCode;
 use App\Chat\Functions\LanguageScore;
 use App\Chat\Functions\UpdateLeadInfo;
+use App\Chat\Functions\UpdateProjectInfo;
+use App\Chat\Functions\UpdateClientInfo;
 use App\Models\Lead;
 use App\Models\LeadHistory;
 use Illuminate\Support\Facades\Log;
@@ -51,6 +53,14 @@ class ChatSubmitToolOptions
                         
                     case 'update_lead_info':
                         $callOUTPUT = UpdateLeadInfo::run($threadId, $call);           
+                        break;
+
+                    case 'update_project_info':
+                        $callOUTPUT = UpdateProjectInfo::run($threadId, $call);           
+                        break;
+
+                    case 'update_client_info':
+                        $callOUTPUT = UpdateClientInfo::run($threadId, $call);           
                         break;
 
                     default:

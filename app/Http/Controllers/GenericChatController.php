@@ -54,9 +54,15 @@ class GenericChatController extends Controller
 
         try
         {
+            
+            // assistantID
+            if ( method_exists($this, 'setAssistant') ) $this->setAssistant();
             $assistantId = $this->assistantId;            
+         
             $threadId = Session::get($this->threadSessionName);
             
+            $newThread  = $threadId == null;
+
             if ( $threadId == null )
             {
                 $res = OpenAI::threads()->create([]);
@@ -65,14 +71,20 @@ class GenericChatController extends Controller
 
                 Mail::to("rodrigo.nsh@gmail.com")->send(new NewThreadMail($mensagem));
 
+                
             }
-
+            
             // Este metodo tem que existir na classe herdeira
             // serve para trackear o Lead, ou Projeto, ou Usuario etc
             $this->setThreadTracker($threadId);
-
+            
             if ( method_exists($this, 'addToHistory') ) $this->addToHistory($mensagem);
             
+            
+            if ( $newThread && method_exists($this, 'prependFirstMessage') )
+            {
+                $mensagem = $this->prependFirstMessage($mensagem);
+            }
 
             $langs = 
             [
@@ -80,6 +92,8 @@ class GenericChatController extends Controller
                 "en" => ". Please answer in english",
                 "es" => ". Por favor responda en español",
             ];
+
+            
 
             $response = OpenAI::threads()->messages()->create($threadId, [
                 'role' => 'user',
@@ -158,6 +172,8 @@ class GenericChatController extends Controller
         catch(\Exception $e)
         {
             $line = $e->getLine();
+            //Log::error($e->getTrace());
+            Log::error($e->getFile());
             Log::error($e->getMessage());
             return "ERROR on #$line Please check logs!";
         }
